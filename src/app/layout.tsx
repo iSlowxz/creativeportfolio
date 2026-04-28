@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { Cursor } from "@/components/cursor";
+import { IntroOverlay } from "@/components/intro-overlay";
 import { ScrambleProvider } from "@/components/scramble-provider";
 
 const geistSans = Geist({
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body className="grain min-h-full flex flex-col">
         <ScrambleProvider />
         <Cursor />
+        <IntroOverlay />
         {children}
       </body>
     </html>
