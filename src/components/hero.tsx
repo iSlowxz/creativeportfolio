@@ -10,6 +10,7 @@ import { LocalTime } from "@/components/local-time";
  */
 export function Hero() {
   type HeroChunk = { text: string; accent?: boolean };
+  type SlideDirection = -1 | 1;
 
   const audienceCards = [
     {
@@ -42,6 +43,7 @@ export function Hero() {
   ] satisfies Array<{ label: string; lines: HeroChunk[][] }>;
 
   const [activeAudience, setActiveAudience] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<SlideDirection>(1);
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -52,6 +54,12 @@ export function Hero() {
   const titleScale = useTransform(scrollYProgress, [0, 1], [1, 0.985]);
   const metaY = useTransform(scrollYProgress, [0, 1], [0, -14]);
   const metaOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
+
+  const onAudienceChange = (nextIndex: number) => {
+    if (nextIndex === activeAudience) return;
+    setSlideDirection(nextIndex > activeAudience ? 1 : -1);
+    setActiveAudience(nextIndex);
+  };
 
   return (
     <section
@@ -68,7 +76,7 @@ export function Hero() {
               <button
                 type="button"
                 aria-pressed={idx === activeAudience}
-                onClick={() => setActiveAudience(idx)}
+                onClick={() => onAudienceChange(idx)}
                 className={`transition-colors duration-200 ${
                   idx === activeAudience ? "text-[var(--foreground)]" : "text-[var(--ash)] hover:text-[var(--foreground)]"
                 }`}
@@ -79,13 +87,14 @@ export function Hero() {
           ))}
         </ul>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" custom={slideDirection}>
           <motion.h1
             key={audienceCards[activeAudience].label}
-            initial={{ opacity: 0, filter: "blur(2px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, filter: "blur(2px)" }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            custom={slideDirection}
+            initial={(direction: SlideDirection) => ({ opacity: 0, x: direction * 26 })}
+            animate={{ opacity: 1, x: 0 }}
+            exit={(direction: SlideDirection) => ({ opacity: 0, x: direction * -26 })}
+            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
             style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
             className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
           >
