@@ -335,7 +335,7 @@ export function Works() {
       <AnimatePresence>
         {activeSlug ? (
           <motion.div
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/45 px-4 py-8"
+            className="fixed inset-0 z-[70] flex items-end justify-center bg-black/45 px-0 py-0 md:items-center md:px-4 md:py-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -346,7 +346,7 @@ export function Works() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="flex max-h-[92vh] w-full max-w-[1180px] flex-col overflow-hidden border hairline rounded-none bg-[var(--paper)]"
+              className="flex h-[100dvh] w-full max-w-[1180px] flex-col overflow-hidden border-0 bg-[var(--paper)] md:max-h-[92vh] md:h-auto md:border md:hairline md:rounded-none"
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -358,7 +358,7 @@ export function Works() {
                     <div className="scrollbar-subtle min-h-0 flex-1 overflow-y-auto">
                       <div className="grid grid-cols-12">
                         <div
-                          className="col-span-12 border-b hairline p-6 md:col-span-5 md:border-b-0 md:border-r md:p-7"
+                          className="col-span-12 border-b hairline p-5 pt-18 md:col-span-5 md:border-b-0 md:border-r md:p-7"
                           data-no-scramble="true"
                         >
                           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
@@ -433,7 +433,7 @@ export function Works() {
                             </article>
                           </section>
                         </div>
-                        <div className="col-span-12 p-3 md:col-span-7 md:flex md:items-center md:p-4">
+                        <div className="col-span-12 p-3 pb-5 md:col-span-7 md:flex md:items-center md:p-4">
                           <div className="grid w-full grid-cols-3 gap-1.5">
                             {Array.from({ length: 9 }).map((_, index) => {
                               const src = mediaSet[index % (mediaSet.length || 1)];
@@ -466,7 +466,7 @@ export function Works() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-end border-t hairline p-3">
+                    <div className="sticky bottom-0 flex items-center justify-end border-t hairline bg-[var(--paper)]/96 p-3 backdrop-blur-sm">
                       <button
                         type="button"
                         onClick={() => setActiveSlug(null)}
