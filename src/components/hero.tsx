@@ -36,9 +36,8 @@ export function Hero() {
       lines: [
         [{ text: "I’m " }, { text: "{highly_technical}", accent: true }],
         [{ text: "and while (I'm ≠ engineer)" }],
-        [{ text: "I build with " }, { text: "(dev_flow)", accent: true }, { text: " in mind;" }],
-        [{ text: "my UI/UX is " }, { text: "[structured]", accent: true }, { text: " && " }, { text: "[handoff_ready]", accent: true }],
-        [{ text: "I built (this.site) from scratch + (this.one) && (this.too)" }],
+        [{ text: "I speak " }, { text: "\"fluent_logic\"", accent: true }, { text: " with you;" }],
+        [{ text: "I built (this.site) from scratch using " }, { text: "[react]", accent: true }, { text: " + " }, { text: "[tailwind]", accent: true }, { text: "." }],
       ],
     },
   ] satisfies Array<{ label: string; lines: HeroChunk[][] }>;
