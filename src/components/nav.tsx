@@ -3,7 +3,7 @@
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Toolbar } from "@/components/toolbar";
 
 /**
@@ -36,67 +36,18 @@ export function Nav() {
   const LogoName = () => {
     const full = "MARK ANGELO CORNEJO";
     const compact = "M";
-    const [chars, setChars] = useState(full.split(""));
-    const rafMapRef = useRef<Map<number, number>>(new Map());
-    const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-    const stop = (index: number) => {
-      const id = rafMapRef.current.get(index);
-      if (id !== undefined) {
-        cancelAnimationFrame(id);
-        rafMapRef.current.delete(index);
-      }
-    };
-
-    const run = (index: number) => {
-      const original = full[index];
-      if (original === " ") return;
-      stop(index);
-
-      const start = performance.now();
-      const duration = 220;
-
-      const tick = (t: number) => {
-        const p = Math.min(1, (t - start) / duration);
-        const nextChar =
-          p > 0.65
-            ? original
-            : CHARS[Math.floor(Math.random() * CHARS.length)];
-        setChars((prev) => {
-          const copy = [...prev];
-          copy[index] = nextChar;
-          return copy;
-        });
-        if (p < 1) {
-          const id = requestAnimationFrame(tick);
-          rafMapRef.current.set(index, id);
-        } else {
-          setChars((prev) => {
-            const copy = [...prev];
-            copy[index] = original;
-            return copy;
-          });
-          rafMapRef.current.delete(index);
-        }
-      };
-
-      const id = requestAnimationFrame(tick);
-      rafMapRef.current.set(index, id);
-    };
 
     return (
       <span data-no-scramble="true" className="font-sans font-semibold tracking-[0.08em]">
-        <span className="inline-block md:hidden">{hidden ? compact : full}</span>
-        <span className="hidden md:inline">
-          {chars.map((ch, i) => (
-            <span
-              key={`${i}-${full[i]}`}
-              onMouseEnter={() => run(i)}
-              className="inline-block"
-            >
-              {ch}
-            </span>
-          ))}
+        <span className="inline-block md:hidden">{compact}</span>
+        <span className="hidden items-center md:inline-flex">
+          <span>{compact}</span>
+          <span
+            className="overflow-hidden whitespace-nowrap pl-0 opacity-0 max-w-0 transition-[max-width,opacity,padding-left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:max-w-[22ch] group-hover/logo:pl-1.5 group-hover/logo:opacity-100"
+            aria-hidden="true"
+          >
+            {full.slice(1)}
+          </span>
         </span>
       </span>
     );
@@ -121,7 +72,7 @@ export function Nav() {
             href="/"
             data-cursor="link"
             data-no-scramble="true"
-            className="inline-flex min-w-0 items-baseline font-mono text-[10px] uppercase tracking-[0.1em] md:text-[11px] md:tracking-[0.12em]"
+            className="group/logo inline-flex min-w-0 items-baseline font-mono text-[10px] uppercase tracking-[0.1em] md:text-[11px] md:tracking-[0.12em]"
           >
             <LogoName />
           </Link>
