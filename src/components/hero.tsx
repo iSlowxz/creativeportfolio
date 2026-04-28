@@ -34,10 +34,11 @@ export function Hero() {
     {
       label: "Engineers",
       lines: [
-        [{ text: "I design with " }, { text: "dev flow", accent: true }],
-        [{ text: "in mind - structured," }],
-        [{ text: "handoff-ready, and built" }],
-        [{ text: "to ship smoothly." }],
+        [{ text: "const Mark = { " }],
+        [{ text: "role: 'designer'", accent: true }],
+        [{ text: "capabilities: ['UI/UX', 'branding', 'social', 'layout']", accent: true }],
+        [{ text: "workflow: (design) => design.map(pixel => pixel.is_semantic),", accent: true }],
+        [{ text: "};" }],
       ],
     },
   ] satisfies Array<{ label: string; lines: HeroChunk[][] }>;

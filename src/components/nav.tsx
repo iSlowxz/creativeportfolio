@@ -14,6 +14,7 @@ export function Nav() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [allowAutoHide, setAllowAutoHide] = useState(false);
   const [logoExpanded, setLogoExpanded] = useState(false);
   const links: Array<[string, string]> = [
     ["Works", "/#works"],
@@ -27,7 +28,20 @@ export function Nav() {
     return pathname === href;
   };
 
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 768px)");
+    const apply = () => setAllowAutoHide(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
+    if (!allowAutoHide) {
+      setHidden(false);
+      setScrolled(latest > 8);
+      return;
+    }
     const prev = scrollY.getPrevious() ?? 0;
     if (latest > prev && latest > 80) setHidden(true);
     else setHidden(false);

@@ -108,7 +108,9 @@ export function Works() {
     const body = document.body;
     const previousOverflow = body.style.overflow;
     const previousPaddingRight = body.style.paddingRight;
-    const scrollbarGap = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarGap = isMobile
+      ? 0
+      : window.innerWidth - document.documentElement.clientWidth;
 
     body.style.overflow = "hidden";
     if (scrollbarGap > 0) {
@@ -119,7 +121,7 @@ export function Works() {
       body.style.overflow = previousOverflow;
       body.style.paddingRight = previousPaddingRight;
     };
-  }, [activeSlug, activeImageIndex]);
+  }, [activeSlug, activeImageIndex, isMobile]);
 
   useEffect(() => {
     if (activeImageIndex === null) {
@@ -371,16 +373,18 @@ export function Works() {
       <AnimatePresence>
         {activeSlug ? (
           <motion.div
-            className="fixed inset-0 z-[70] flex items-end justify-center bg-black/45 px-0 py-0 md:items-center md:px-4 md:py-8"
+            className={`fixed inset-0 z-[70] flex items-end justify-center bg-black/45 px-0 py-0 md:items-center md:px-4 md:py-8 ${
+              isMobile ? "" : "backdrop-blur-[1px]"
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveSlug(null)}
           >
             <motion.article
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.98 }}
+              initial={isMobile ? { opacity: 0, y: 10 } : { opacity: 0, y: 16, scale: 0.98 }}
+              animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0, scale: 1 }}
+              exit={isMobile ? { opacity: 0, y: 8 } : { opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               className="popup-outline flex h-[100dvh] w-full max-w-[1180px] flex-col overflow-hidden border-0 bg-[var(--paper)] md:max-h-[92vh] md:h-auto md:border md:rounded-none"
               onClick={(e) => e.stopPropagation()}
@@ -521,7 +525,9 @@ export function Works() {
       <AnimatePresence>
         {activeImageIndex !== null && activeMediaSet.length ? (
           <motion.div
-            className="fixed inset-0 z-[95] flex items-center justify-center bg-black/68 p-4 backdrop-blur-[1px]"
+            className={`fixed inset-0 z-[95] flex items-center justify-center bg-black/68 p-4 ${
+              isMobile ? "" : "backdrop-blur-[1px]"
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -529,9 +535,9 @@ export function Works() {
           >
             <motion.div
               className="popup-outline relative h-[88vh] w-full max-w-[88vh] overflow-hidden border rounded-none bg-[var(--background)]/95"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+              initial={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+              animate={isMobile ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              exit={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               onMouseMove={isMobile ? undefined : () => {
