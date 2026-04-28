@@ -16,10 +16,8 @@ export function Hero() {
     {
       label: "For anyone",
       lines: [
-        [{ text: "Hello there, I'm a" }],
-        [{ text: "designer who cares" }],
-        [{ text: "about making " }, { text: "beautiful", accent: true }],
-        [{ text: "things that help people." }],
+        [{ text: "Hello there, I'm a designer who cares about making " }, { text: "beautiful", accent: true }],
+        [{ text: "tools that simplify complex human tasks." }],
       ],
     },
     {
@@ -34,9 +32,7 @@ export function Hero() {
     {
       label: "Engineers",
       lines: [
-        [{ text: "I’m " }, { text: "{highly_technical}", accent: true }],
-        [{ text: "and while (I'm ≠ engineer)" }],
-        [{ text: "I speak " }, { text: "\"fluent_logic\"", accent: true }, { text: " with you;" }],
+        [{ text: "I’m " }, { text: "{highly_technical}", accent: true }, { text: " and while (I'm ≠ engineer), I speak " }, { text: "\"fluent_logic\"", accent: true }, { text: " with you;" }],
         [{ text: "I built (this.site) from scratch using " }, { text: "[react]", accent: true }, { text: " + " }, { text: "[tailwind]", accent: true }, { text: "." }],
       ],
     },
