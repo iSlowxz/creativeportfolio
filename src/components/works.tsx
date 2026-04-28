@@ -382,7 +382,7 @@ export function Works() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="flex h-[100dvh] w-full max-w-[1180px] flex-col overflow-hidden border-0 bg-[var(--paper)] md:max-h-[92vh] md:h-auto md:border md:hairline md:rounded-none"
+              className="popup-outline flex h-[100dvh] w-full max-w-[1180px] flex-col overflow-hidden border-0 bg-[var(--paper)] md:max-h-[92vh] md:h-auto md:border md:rounded-none"
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -480,7 +480,7 @@ export function Works() {
                                   onClick={() => {
                                     if (mediaSet.length) setActiveImageIndex(index % mediaSet.length);
                                   }}
-                                  className="relative aspect-square overflow-hidden border hairline rounded-none bg-[color-mix(in_srgb,var(--ash)_10%,var(--paper))]"
+                                  className="relative aspect-square overflow-hidden border popup-outline rounded-none bg-[color-mix(in_srgb,var(--ash)_10%,var(--paper))]"
                                 >
                                   {src ? (
                                     <Image
@@ -506,7 +506,7 @@ export function Works() {
                       <button
                         type="button"
                         onClick={() => setActiveSlug(null)}
-                        className="btn-accent-soft border hairline rounded-none px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em]"
+                        className="popup-outline btn-accent-soft border rounded-none px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em]"
                       >
                         Close
                       </button>
@@ -528,7 +528,7 @@ export function Works() {
             onClick={() => setActiveImageIndex(null)}
           >
             <motion.div
-              className="relative h-[88vh] w-full max-w-[88vh] overflow-hidden border hairline rounded-none bg-[var(--background)]/95"
+              className="popup-outline relative h-[88vh] w-full max-w-[88vh] overflow-hidden border rounded-none bg-[var(--background)]/95"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
@@ -573,7 +573,7 @@ export function Works() {
                       type="button"
                       onClick={showPreviousImage}
                       data-cursor="link"
-                      className="absolute left-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center border hairline rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
+                      className="popup-outline absolute left-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center border rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
                       aria-label="Previous image"
                     >
                       ‹
@@ -586,7 +586,7 @@ export function Works() {
                       type="button"
                       onClick={showNextImage}
                       data-cursor="link"
-                      className="absolute right-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center border hairline rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
+                      className="popup-outline absolute right-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center border rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
                       aria-label="Next image"
                     >
                       ›
@@ -599,7 +599,7 @@ export function Works() {
                       type="button"
                       onClick={() => setActiveImageIndex(null)}
                       data-cursor="link"
-                      className="absolute right-2 top-2 grid h-7 w-7 place-items-center border hairline rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
+                      className="popup-outline absolute right-2 top-2 grid h-7 w-7 place-items-center border rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
                     >
                       ×
                     </motion.button>
@@ -614,7 +614,7 @@ export function Works() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.98 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border hairline rounded-none bg-[var(--background)]/82 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
+                    className="popup-outline pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border rounded-none bg-[var(--background)]/82 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
                   >
                     {isMobile ? "Swipe left or right" : "Use Arrow Keys • ESC"}
                   </motion.p>

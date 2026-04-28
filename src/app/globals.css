@@ -175,6 +175,14 @@ body::-webkit-scrollbar {
   transition: border-color 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.popup-outline {
+  border-color: color-mix(in srgb, var(--foreground) 12%, transparent);
+  transition:
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--foreground) 7%, transparent);
+}
+
 /* Subtle button accents for key actions */
 .btn-accent-soft {
   transition:
