@@ -21,7 +21,7 @@ export default function AboutPage() {
               </div>
               <div className="col-span-12 mt-5 md:col-span-10 md:mt-0">
                 <RevealHeading delay={0.02}>
-                  <h1 className="whitespace-nowrap text-[clamp(1.45rem,5.1vw,5.2rem)] leading-[0.94] tracking-[-0.02em]">
+                  <h1 className="text-[clamp(1.45rem,5.1vw,5.2rem)] leading-[0.94] tracking-[-0.02em]">
                     <span className="font-medium">About </span>
                     <span className="font-medium font-serif italic serif-accent-hover">
                       Mark Angelo Cornejo

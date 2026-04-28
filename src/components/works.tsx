@@ -39,6 +39,7 @@ export function Works() {
   const [layout, setLayout] = useState<"list" | "grid">("grid");
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [listHoverSlug, setListHoverSlug] = useState<string | null>(null);
   const [listPreviewPos, setListPreviewPos] = useState({ x: 0, y: 0 });
   const [listPreviewTilt, setListPreviewTilt] = useState({ rotateX: 0, rotateY: 0 });
@@ -81,10 +82,19 @@ export function Works() {
   }, [activeImageIndex, activeMediaSet]);
 
   useEffect(() => {
+    const query = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const apply = () => setIsTouchDevice(query.matches);
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, []);
+
+  useEffect(() => {
     if (activeImageIndex === null || !showViewerControls) return;
+    if (isTouchDevice) return;
     const id = window.setTimeout(() => setShowViewerControls(false), 1200);
     return () => window.clearTimeout(id);
-  }, [activeImageIndex, showViewerControls]);
+  }, [activeImageIndex, isTouchDevice, showViewerControls]);
 
   useEffect(() => {
     const shouldLockScroll = activeSlug !== null || activeImageIndex !== null;
@@ -269,45 +279,79 @@ export function Works() {
                 transition={{ duration: 0.36, delay: i * 0.02 }}
                 className="group transition-colors duration-300"
               >
-                <HoverPerspective
-                  className="border hairline bg-[var(--paper)] transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,var(--paper))]"
-                  tilt={7}
-                  lift={3}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setActiveSlug(p.slug)}
-                    data-cursor="view"
-                    className="block w-full text-left"
-                  >
-                    <div className="group/image relative aspect-[4/5] overflow-hidden">
-                      {coverBySlug[p.slug]}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/62 via-black/12 to-transparent opacity-0 transition-opacity duration-300 group-hover/image:opacity-100" />
-                      <div className="pointer-events-none absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100">
-                        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
-                          {p.client}
-                        </p>
-                        <p className="mt-1 text-[clamp(1.05rem,1.7vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
-                          {p.discipline}
-                        </p>
-                        <div className="mt-3 flex items-center text-white/90">
-                          <span className="font-mono text-[10px] uppercase tracking-[0.16em]">
-                            Open project
-                          </span>
+                {isTouchDevice ? (
+                  <div className="border hairline bg-[var(--paper)]">
+                    <button
+                      type="button"
+                      onClick={() => setActiveSlug(p.slug)}
+                      data-cursor="view"
+                      className="block w-full text-left"
+                    >
+                      <div className="relative aspect-[4/5] overflow-hidden bg-[var(--paper)]">
+                        {coverBySlug[p.slug]}
+                        <div className="pointer-events-none absolute inset-x-3 bottom-3 bg-black/48 px-3 py-2 text-white backdrop-blur-[1px]">
+                          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
+                            {p.client}
+                          </p>
+                          <p className="mt-1 text-[clamp(1rem,4.5vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
+                            {p.discipline}
+                          </p>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center justify-between border-t hairline px-4 py-3">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
-                        {p.index}
-                      </span>
-                      <span className="text-lg tracking-[-0.02em]">{p.title}</span>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
-                        {p.category}
-                      </span>
-                    </div>
-                  </button>
-                </HoverPerspective>
+                      <div className="flex items-center justify-between gap-3 border-t hairline px-4 py-3">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                          {p.index}
+                        </span>
+                        <span className="min-w-0 flex-1 text-base tracking-[-0.02em]">
+                          {p.title}
+                        </span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                          {p.category}
+                        </span>
+                      </div>
+                    </button>
+                  </div>
+                ) : (
+                  <HoverPerspective
+                    className="border hairline bg-[var(--paper)] transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,var(--paper))]"
+                    tilt={7}
+                    lift={3}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setActiveSlug(p.slug)}
+                      data-cursor="view"
+                      className="block w-full text-left"
+                    >
+                      <div className="group/image relative aspect-[4/5] overflow-hidden">
+                        {coverBySlug[p.slug]}
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/62 via-black/12 to-transparent opacity-0 transition-opacity duration-300 group-hover/image:opacity-100" />
+                        <div className="pointer-events-none absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100">
+                          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
+                            {p.client}
+                          </p>
+                          <p className="mt-1 text-[clamp(1.05rem,1.7vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
+                            {p.discipline}
+                          </p>
+                          <div className="mt-3 flex items-center text-white/90">
+                            <span className="font-mono text-[10px] uppercase tracking-[0.16em]">
+                              Open project
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between border-t hairline px-4 py-3">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                          {p.index}
+                        </span>
+                        <span className="text-lg tracking-[-0.02em]">{p.title}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                          {p.category}
+                        </span>
+                      </div>
+                    </button>
+                  </HoverPerspective>
+                )}
               </motion.div>
             ))}
           </div>
@@ -483,6 +527,9 @@ export function Works() {
               onMouseMove={() => {
                 setShowViewerControls(true);
               }}
+              onTouchStart={() => {
+                setShowViewerControls(true);
+              }}
             >
               <Image
                 src={activeMediaSet[activeImageIndex]}
@@ -555,7 +602,7 @@ export function Works() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border hairline rounded-none bg-[var(--background)]/82 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
                   >
-                    Use Arrow Keys • ESC
+                    {isTouchDevice ? "Tap controls or outside to close" : "Use Arrow Keys • ESC"}
                   </motion.p>
                 ) : null}
               </AnimatePresence>
