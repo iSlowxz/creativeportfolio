@@ -12,9 +12,7 @@ export default function Home() {
       <ScrollReveal>
         <Hero />
       </ScrollReveal>
-      <ScrollReveal delay={0.04}>
-        <Works />
-      </ScrollReveal>
+      <Works />
       <ScrollReveal delay={0.06}>
         <Testimonials />
       </ScrollReveal>

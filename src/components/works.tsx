@@ -187,94 +187,121 @@ export function Works() {
 
         {layout === "list" ? (
           <ul className="flex flex-col">
-            {visible.map((p, i) => (
-              <motion.li
-                key={p.index}
-                initial={isMobile ? false : { opacity: 0, y: 8 }}
-                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
-                viewport={isMobile ? undefined : { once: false, amount: 0.28 }}
-                transition={{ duration: 0.34, delay: i * 0.02 }}
-                className="group relative border-b hairline transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,transparent)]"
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveSlug(p.slug)}
-                  onMouseEnter={isMobile ? undefined : (event) => {
-                    setListHoverSlug(p.slug);
-                    const rect = event.currentTarget.getBoundingClientRect();
-                    updateListPreviewPointer(
-                      event.currentTarget,
-                      rect.left + rect.width * 0.66,
-                      rect.top + rect.height * 0.5,
-                    );
-                  }}
-                  onMouseLeave={isMobile ? undefined : () => {
-                    setListHoverSlug((prev) => (prev === p.slug ? null : prev));
-                    setListPreviewTilt({ rotateX: 0, rotateY: 0 });
-                  }}
-                  onMouseMove={isMobile ? undefined : (event) => {
-                    updateListPreviewPointer(event.currentTarget, event.clientX, event.clientY);
-                  }}
-                  data-cursor="view"
-                  className="grid w-full grid-cols-12 items-center gap-x-4 gap-y-4 py-6 text-left md:gap-y-0"
+            {visible.map((p, i) =>
+              isMobile ? (
+                <li
+                  key={p.index}
+                  className="border-b hairline"
                 >
-                  <span className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-1">
-                    {p.index}
-                  </span>
-                  <div className="col-span-12 overflow-hidden border hairline bg-[var(--paper)] md:hidden">
-                    <div className="aspect-[4/5]">
-                      {coverBySlug[p.slug]}
-                    </div>
-                  </div>
-                  <span className="col-span-12 text-[clamp(1.35rem,8vw,2.8rem)] leading-none tracking-[-0.02em] md:col-span-7 md:text-[clamp(1.35rem,3vw,2.8rem)]">
-                    {p.title}
-                  </span>
-                  <span className="col-span-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
-                    {p.category}
-                  </span>
-                  <span className="col-span-6 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
-                    {p.year}
-                  </span>
-                </button>
-                <AnimatePresence>
-                  {listHoverSlug === p.slug && !isMobile ? (
-                    <motion.div
-                      className="pointer-events-none absolute left-0 top-0 z-10 hidden w-48 -translate-x-1/2 -translate-y-1/2 overflow-hidden border hairline bg-[var(--paper)] [transform-style:preserve-3d] md:block"
-                      initial={{ opacity: 0, scale: 0.96, y: 4, filter: "blur(2px)" }}
-                      animate={{
-                        opacity: 1,
-                        scale: 1,
-                        x: listPreviewPos.x,
-                        y: listPreviewPos.y,
-                        rotateX: listPreviewTilt.rotateX,
-                        rotateY: listPreviewTilt.rotateY,
-                        filter: "blur(0px)",
-                        boxShadow: "0 14px 34px rgba(0, 0, 0, 0.16)",
-                      }}
-                      exit={{ opacity: 0, scale: 0.97, y: 3, filter: "blur(2px)" }}
-                      transition={{
-                        opacity: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
-                        scale: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-                        filter: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
-                        boxShadow: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
-                        x: { type: "spring", stiffness: 175, damping: 28, mass: 0.8 },
-                        y: { type: "spring", stiffness: 175, damping: 28, mass: 0.8 },
-                        rotateX: { type: "spring", stiffness: 145, damping: 23, mass: 0.8 },
-                        rotateY: { type: "spring", stiffness: 145, damping: 23, mass: 0.8 },
-                      }}
-                    >
+                  <button
+                    type="button"
+                    onClick={() => setActiveSlug(p.slug)}
+                    data-cursor="view"
+                    className="grid w-full grid-cols-12 items-center gap-x-4 gap-y-4 py-6 text-left"
+                  >
+                    <span className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                      {p.index}
+                    </span>
+                    <div className="col-span-12 overflow-hidden border hairline bg-[var(--paper)]">
                       <div className="aspect-[4/5]">
                         {coverBySlug[p.slug]}
                       </div>
-                      <div className="flex items-center justify-between border-t hairline px-2 py-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ash)]">
-                        <span>{p.index}</span>
-                        <span>{p.year}</span>
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </motion.li>
-            ))}
+                    </div>
+                    <span className="col-span-12 text-[clamp(1.35rem,8vw,2.8rem)] leading-none tracking-[-0.02em]">
+                      {p.title}
+                    </span>
+                    <span className="col-span-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                      {p.category}
+                    </span>
+                    <span className="col-span-6 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                      {p.year}
+                    </span>
+                  </button>
+                </li>
+              ) : (
+                <motion.li
+                  key={p.index}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.28 }}
+                  transition={{ duration: 0.34, delay: i * 0.02 }}
+                  className="group relative border-b hairline transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,transparent)]"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setActiveSlug(p.slug)}
+                    onMouseEnter={(event) => {
+                      setListHoverSlug(p.slug);
+                      const rect = event.currentTarget.getBoundingClientRect();
+                      updateListPreviewPointer(
+                        event.currentTarget,
+                        rect.left + rect.width * 0.66,
+                        rect.top + rect.height * 0.5,
+                      );
+                    }}
+                    onMouseLeave={() => {
+                      setListHoverSlug((prev) => (prev === p.slug ? null : prev));
+                      setListPreviewTilt({ rotateX: 0, rotateY: 0 });
+                    }}
+                    onMouseMove={(event) => {
+                      updateListPreviewPointer(event.currentTarget, event.clientX, event.clientY);
+                    }}
+                    data-cursor="view"
+                    className="grid w-full grid-cols-12 items-center gap-x-4 gap-y-4 py-6 text-left md:gap-y-0"
+                  >
+                    <span className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-1">
+                      {p.index}
+                    </span>
+                    <span className="col-span-12 text-[clamp(1.35rem,8vw,2.8rem)] leading-none tracking-[-0.02em] md:col-span-7 md:text-[clamp(1.35rem,3vw,2.8rem)]">
+                      {p.title}
+                    </span>
+                    <span className="col-span-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
+                      {p.category}
+                    </span>
+                    <span className="col-span-6 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
+                      {p.year}
+                    </span>
+                  </button>
+                  <AnimatePresence>
+                    {listHoverSlug === p.slug ? (
+                      <motion.div
+                        className="pointer-events-none absolute left-0 top-0 z-10 hidden w-48 -translate-x-1/2 -translate-y-1/2 overflow-hidden border hairline bg-[var(--paper)] [transform-style:preserve-3d] md:block"
+                        initial={{ opacity: 0, scale: 0.96, y: 4, filter: "blur(2px)" }}
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          x: listPreviewPos.x,
+                          y: listPreviewPos.y,
+                          rotateX: listPreviewTilt.rotateX,
+                          rotateY: listPreviewTilt.rotateY,
+                          filter: "blur(0px)",
+                          boxShadow: "0 14px 34px rgba(0, 0, 0, 0.16)",
+                        }}
+                        exit={{ opacity: 0, scale: 0.97, y: 3, filter: "blur(2px)" }}
+                        transition={{
+                          opacity: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+                          scale: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+                          filter: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+                          boxShadow: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                          x: { type: "spring", stiffness: 175, damping: 28, mass: 0.8 },
+                          y: { type: "spring", stiffness: 175, damping: 28, mass: 0.8 },
+                          rotateX: { type: "spring", stiffness: 145, damping: 23, mass: 0.8 },
+                          rotateY: { type: "spring", stiffness: 145, damping: 23, mass: 0.8 },
+                        }}
+                      >
+                        <div className="aspect-[4/5]">
+                          {coverBySlug[p.slug]}
+                        </div>
+                        <div className="flex items-center justify-between border-t hairline px-2 py-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ash)]">
+                          <span>{p.index}</span>
+                          <span>{p.year}</span>
+                        </div>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </motion.li>
+              ),
+            )}
           </ul>
         ) : (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
