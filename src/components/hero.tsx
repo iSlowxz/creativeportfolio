@@ -87,21 +87,20 @@ export function Hero() {
           ))}
         </ul>
 
-        <AnimatePresence mode="wait" custom={slideDirection}>
+        <AnimatePresence mode="wait">
           <motion.h1
             key={audienceCards[activeAudience].label}
-            custom={slideDirection}
-            initial={(direction: SlideDirection) => ({
+            initial={{
               opacity: 0,
-              x: direction * 40,
+              x: slideDirection * 40,
               filter: "blur(0px)",
-            })}
+            }}
             animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            exit={(direction: SlideDirection) => ({
+            exit={{
               opacity: 0,
-              x: direction * -40,
+              x: slideDirection * -40,
               filter: "blur(0px)",
-            })}
+            }}
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
             style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
             className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
