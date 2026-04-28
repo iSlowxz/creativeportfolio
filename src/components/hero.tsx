@@ -34,11 +34,11 @@ export function Hero() {
     {
       label: "Engineers",
       lines: [
-        [{ text: "const Mark = { " }],
-        [{ text: "role: 'designer'", accent: true }],
-        [{ text: "capabilities: ['UI/UX', 'branding', 'social', 'layout']", accent: true }],
-        [{ text: "workflow: (design) => design.map(pixel => pixel.is_semantic),", accent: true }],
-        [{ text: "};" }],
+        [{ text: "I’m " }, { text: "{highly_technical}", accent: true }],
+        [{ text: "and while (I'm ≠ engineer)" }],
+        [{ text: "I build with " }, { text: "(dev_flow)", accent: true }, { text: " in mind;" }],
+        [{ text: "my UI/UX is " }, { text: "[structured]", accent: true }, { text: " && " }, { text: "[handoff_ready]", accent: true }],
+        [{ text: "I built (this.site) from scratch + (this.one) && (this.too)" }],
       ],
     },
   ] satisfies Array<{ label: string; lines: HeroChunk[][] }>;
