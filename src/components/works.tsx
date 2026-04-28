@@ -39,7 +39,7 @@ export function Works() {
   const [layout, setLayout] = useState<"list" | "grid">("grid");
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [listHoverSlug, setListHoverSlug] = useState<string | null>(null);
   const [listPreviewPos, setListPreviewPos] = useState({ x: 0, y: 0 });
   const [listPreviewTilt, setListPreviewTilt] = useState({ rotateX: 0, rotateY: 0 });
@@ -54,6 +54,18 @@ export function Works() {
     () => (activeWork?.slug === "daily-hum-social" ? dailyHumGallery : []),
     [activeWork],
   );
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const apply = () => {
+      const mobile = query.matches;
+      setIsMobile(mobile);
+      setLayout(mobile ? "list" : "grid");
+    };
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, []);
 
   useEffect(() => {
     if (activeImageIndex === null) return;
@@ -82,19 +94,10 @@ export function Works() {
   }, [activeImageIndex, activeMediaSet]);
 
   useEffect(() => {
-    const query = window.matchMedia("(hover: none) and (pointer: coarse)");
-    const apply = () => setIsTouchDevice(query.matches);
-    apply();
-    query.addEventListener("change", apply);
-    return () => query.removeEventListener("change", apply);
-  }, []);
-
-  useEffect(() => {
     if (activeImageIndex === null || !showViewerControls) return;
-    if (isTouchDevice) return;
     const id = window.setTimeout(() => setShowViewerControls(false), 1200);
     return () => window.clearTimeout(id);
-  }, [activeImageIndex, isTouchDevice, showViewerControls]);
+  }, [activeImageIndex, showViewerControls]);
 
   useEffect(() => {
     const shouldLockScroll = activeSlug !== null || activeImageIndex !== null;
@@ -156,7 +159,7 @@ export function Works() {
             </h2>
           </RevealSubheading>
 
-          <div className="-mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:px-0">
+          <div className="-mx-1 hidden items-center gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:flex md:px-0">
             <div className="inline-flex shrink-0 border hairline">
               <button
                 type="button"
@@ -187,9 +190,9 @@ export function Works() {
             {visible.map((p, i) => (
               <motion.li
                 key={p.index}
-                initial={isTouchDevice ? false : { opacity: 0, y: 8 }}
-                whileInView={isTouchDevice ? undefined : { opacity: 1, y: 0 }}
-                viewport={isTouchDevice ? undefined : { once: false, amount: 0.28 }}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.28 }}
                 transition={{ duration: 0.34, delay: i * 0.02 }}
                 className="group relative border-b hairline transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,transparent)]"
               >
@@ -213,23 +216,28 @@ export function Works() {
                     updateListPreviewPointer(event.currentTarget, event.clientX, event.clientY);
                   }}
                   data-cursor="view"
-                  className="grid w-full grid-cols-12 items-center gap-x-4 py-6 text-left"
+                  className="grid w-full grid-cols-12 items-center gap-x-4 gap-y-4 py-6 text-left md:gap-y-0"
                 >
-                  <span className="col-span-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                  <span className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-1">
                     {p.index}
                   </span>
-                  <span className="col-span-7 text-[clamp(1.35rem,3vw,2.8rem)] leading-none tracking-[-0.02em]">
+                  <div className="col-span-12 overflow-hidden border hairline bg-[var(--paper)] md:hidden">
+                    <div className="aspect-[4/5]">
+                      {coverBySlug[p.slug]}
+                    </div>
+                  </div>
+                  <span className="col-span-12 text-[clamp(1.35rem,8vw,2.8rem)] leading-none tracking-[-0.02em] md:col-span-7 md:text-[clamp(1.35rem,3vw,2.8rem)]">
                     {p.title}
                   </span>
-                  <span className="col-span-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                  <span className="col-span-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
                     {p.category}
                   </span>
-                  <span className="col-span-2 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                  <span className="col-span-6 text-right font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
                     {p.year}
                   </span>
                 </button>
                 <AnimatePresence>
-                  {listHoverSlug === p.slug ? (
+                  {listHoverSlug === p.slug && !isMobile ? (
                     <motion.div
                       className="pointer-events-none absolute left-0 top-0 z-10 hidden w-48 -translate-x-1/2 -translate-y-1/2 overflow-hidden border hairline bg-[var(--paper)] [transform-style:preserve-3d] md:block"
                       initial={{ opacity: 0, scale: 0.96, y: 4, filter: "blur(2px)" }}
@@ -273,85 +281,51 @@ export function Works() {
             {visible.map((p, i) => (
               <motion.div
                 key={p.index}
-                initial={isTouchDevice ? false : { opacity: 0, y: 10 }}
-                whileInView={isTouchDevice ? undefined : { opacity: 1, y: 0 }}
-                viewport={isTouchDevice ? undefined : { once: false, amount: 0.28 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.28 }}
                 transition={{ duration: 0.36, delay: i * 0.02 }}
                 className="group transition-colors duration-300"
               >
-                {isTouchDevice ? (
-                  <div className="border hairline bg-[var(--paper)]">
-                    <button
-                      type="button"
-                      onClick={() => setActiveSlug(p.slug)}
-                      data-cursor="view"
-                      className="block w-full text-left"
-                    >
-                      <div className="relative aspect-[4/5] overflow-hidden bg-[var(--paper)]">
-                        {coverBySlug[p.slug]}
-                        <div className="pointer-events-none absolute inset-x-3 bottom-3 bg-black/48 px-3 py-2 text-white backdrop-blur-[1px]">
-                          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
-                            {p.client}
-                          </p>
-                          <p className="mt-1 text-[clamp(1rem,4.5vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
-                            {p.discipline}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between gap-3 border-t hairline px-4 py-3">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
-                          {p.index}
-                        </span>
-                        <span className="min-w-0 flex-1 text-base tracking-[-0.02em]">
-                          {p.title}
-                        </span>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
-                          {p.category}
-                        </span>
-                      </div>
-                    </button>
-                  </div>
-                ) : (
-                  <HoverPerspective
-                    className="border hairline bg-[var(--paper)] transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,var(--paper))]"
-                    tilt={7}
-                    lift={3}
+                <HoverPerspective
+                  className="border hairline bg-[var(--paper)] transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,var(--paper))]"
+                  tilt={7}
+                  lift={3}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setActiveSlug(p.slug)}
+                    data-cursor="view"
+                    className="block w-full text-left"
                   >
-                    <button
-                      type="button"
-                      onClick={() => setActiveSlug(p.slug)}
-                      data-cursor="view"
-                      className="block w-full text-left"
-                    >
-                      <div className="group/image relative aspect-[4/5] overflow-hidden">
-                        {coverBySlug[p.slug]}
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/62 via-black/12 to-transparent opacity-0 transition-opacity duration-300 group-hover/image:opacity-100" />
-                        <div className="pointer-events-none absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100">
-                          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
-                            {p.client}
-                          </p>
-                          <p className="mt-1 text-[clamp(1.05rem,1.7vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
-                            {p.discipline}
-                          </p>
-                          <div className="mt-3 flex items-center text-white/90">
-                            <span className="font-mono text-[10px] uppercase tracking-[0.16em]">
-                              Open project
-                            </span>
-                          </div>
+                    <div className="group/image relative aspect-[4/5] overflow-hidden">
+                      {coverBySlug[p.slug]}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/62 via-black/12 to-transparent opacity-0 transition-opacity duration-300 group-hover/image:opacity-100" />
+                      <div className="pointer-events-none absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
+                          {p.client}
+                        </p>
+                        <p className="mt-1 text-[clamp(1.05rem,1.7vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
+                          {p.discipline}
+                        </p>
+                        <div className="mt-3 flex items-center text-white/90">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.16em]">
+                            Open project
+                          </span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between border-t hairline px-4 py-3">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
-                          {p.index}
-                        </span>
-                        <span className="text-lg tracking-[-0.02em]">{p.title}</span>
-                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
-                          {p.category}
-                        </span>
-                      </div>
-                    </button>
-                  </HoverPerspective>
-                )}
+                    </div>
+                    <div className="flex items-center justify-between border-t hairline px-4 py-3">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                        {p.index}
+                      </span>
+                      <span className="text-lg tracking-[-0.02em]">{p.title}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                        {p.category}
+                      </span>
+                    </div>
+                  </button>
+                </HoverPerspective>
               </motion.div>
             ))}
           </div>
@@ -527,9 +501,6 @@ export function Works() {
               onMouseMove={() => {
                 setShowViewerControls(true);
               }}
-              onTouchStart={() => {
-                setShowViewerControls(true);
-              }}
             >
               <Image
                 src={activeMediaSet[activeImageIndex]}
@@ -602,7 +573,7 @@ export function Works() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border hairline rounded-none bg-[var(--background)]/82 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
                   >
-                    {isTouchDevice ? "Tap controls or outside to close" : "Use Arrow Keys • ESC"}
+                    Use Arrow Keys • ESC
                   </motion.p>
                 ) : null}
               </AnimatePresence>
