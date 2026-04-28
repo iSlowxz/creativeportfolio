@@ -76,6 +76,14 @@ export function Toolbar({ className = "" }: { className?: string }) {
   useEffect(() => {
     if (!prefsReady) return;
     document.documentElement.classList.toggle("invert-mode", inverted);
+    document.documentElement.classList.remove("mode-flicker");
+    // Re-trigger each time mode flips so paper/ink has a slight analog pulse.
+    requestAnimationFrame(() => {
+      document.documentElement.classList.add("mode-flicker");
+      window.setTimeout(() => {
+        document.documentElement.classList.remove("mode-flicker");
+      }, 420);
+    });
     window.localStorage.setItem("mode", inverted ? "dark" : "light");
   }, [inverted, prefsReady]);
 
