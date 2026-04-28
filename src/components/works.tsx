@@ -187,9 +187,9 @@ export function Works() {
             {visible.map((p, i) => (
               <motion.li
                 key={p.index}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.28 }}
+                initial={isTouchDevice ? false : { opacity: 0, y: 8 }}
+                whileInView={isTouchDevice ? undefined : { opacity: 1, y: 0 }}
+                viewport={isTouchDevice ? undefined : { once: false, amount: 0.28 }}
                 transition={{ duration: 0.34, delay: i * 0.02 }}
                 className="group relative border-b hairline transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,transparent)]"
               >
@@ -273,9 +273,9 @@ export function Works() {
             {visible.map((p, i) => (
               <motion.div
                 key={p.index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.28 }}
+                initial={isTouchDevice ? false : { opacity: 0, y: 10 }}
+                whileInView={isTouchDevice ? undefined : { opacity: 1, y: 0 }}
+                viewport={isTouchDevice ? undefined : { once: false, amount: 0.28 }}
                 transition={{ duration: 0.36, delay: i * 0.02 }}
                 className="group transition-colors duration-300"
               >
