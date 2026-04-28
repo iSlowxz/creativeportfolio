@@ -55,6 +55,7 @@ export function Toolbar({ className = "" }: { className?: string }) {
   const [inverted, setInverted] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [isMd, setIsMd] = useState(false);
   const [prefsReady, setPrefsReady] = useState(false);
 
@@ -127,10 +128,41 @@ export function Toolbar({ className = "" }: { className?: string }) {
   // Responsive toolbar width for mobile/tablet/desktop.
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
-    const apply = () => setIsMd(mq.matches);
+    const apply = () => {
+      setIsMd(mq.matches);
+      setCollapsed(true);
+    };
     apply();
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  // Hide toolbar while scrolling down; reveal it when scrolling up.
+  useEffect(() => {
+    let previousY = window.scrollY;
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const scrollingDown = currentY > previousY;
+
+      if (currentY !== previousY) {
+        setCollapsed(true);
+      }
+
+      if (currentY < 40) {
+        setHidden(false);
+      } else if (scrollingDown && currentY > 80) {
+        setHidden(true);
+        setHelpOpen(false);
+      } else {
+        setHidden(false);
+      }
+
+      previousY = currentY;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -140,8 +172,8 @@ export function Toolbar({ className = "" }: { className?: string }) {
         <motion.div
           initial={false}
           animate={{
-            opacity: 1,
-            y: 0,
+            opacity: hidden ? 0 : 1,
+            y: hidden ? 24 : 0,
             width: collapsed ? 40 : isMd ? 286 : 252,
           }}
           transition={{
