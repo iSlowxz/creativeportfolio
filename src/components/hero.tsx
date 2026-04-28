@@ -9,6 +9,7 @@ import { LocalTime } from "@/components/local-time";
  * Adapted to a works-first portfolio rhythm.
  */
 export function Hero() {
+  const audiences = ["For anyone", "Recruiters", "Engineers"];
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -27,9 +28,16 @@ export function Hero() {
       className="relative flex min-h-[84svh] items-center px-4 pb-4 pt-24 md:min-h-[86svh] md:px-10 md:pb-6 md:pt-28"
     >
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10">
-        <div className="col-span-12 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ash)]">
-          Portfolio 2026 · Philippines
-        </div>
+        <ul className="col-span-12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.16em]">
+          {audiences.map((label, idx) => (
+            <li
+              key={label}
+              className={idx === 0 ? "text-[var(--foreground)]" : "text-[var(--ash)]"}
+            >
+              {label}
+            </li>
+          ))}
+        </ul>
 
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
@@ -38,14 +46,10 @@ export function Hero() {
           style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
           className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
         >
-          <span className="block">Multidisciplinary designer crafting</span>
-          <span className="block">
-            <span className="font-serif italic serif-accent-hover">
-              clear systems, thoughtful identities,
-            </span>
-            and
-          </span>
-          <span className="block">refined visual rhythm.</span>
+          <span className="block">Hello there, I&apos;m a</span>
+          <span className="block">designer who cares</span>
+          <span className="block">about making beautiful</span>
+          <span className="block">things that help people.</span>
         </motion.h1>
 
         <motion.div
