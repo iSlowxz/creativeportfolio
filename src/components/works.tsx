@@ -190,16 +190,16 @@ export function Works() {
             {visible.map((p, i) => (
               <motion.li
                 key={p.index}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.28 }}
+                initial={isMobile ? false : { opacity: 0, y: 8 }}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: false, amount: 0.28 }}
                 transition={{ duration: 0.34, delay: i * 0.02 }}
                 className="group relative border-b hairline transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tone-a)_10%,transparent)]"
               >
                 <button
                   type="button"
                   onClick={() => setActiveSlug(p.slug)}
-                  onMouseEnter={(event) => {
+                  onMouseEnter={isMobile ? undefined : (event) => {
                     setListHoverSlug(p.slug);
                     const rect = event.currentTarget.getBoundingClientRect();
                     updateListPreviewPointer(
@@ -208,11 +208,11 @@ export function Works() {
                       rect.top + rect.height * 0.5,
                     );
                   }}
-                  onMouseLeave={() => {
+                  onMouseLeave={isMobile ? undefined : () => {
                     setListHoverSlug((prev) => (prev === p.slug ? null : prev));
                     setListPreviewTilt({ rotateX: 0, rotateY: 0 });
                   }}
-                  onMouseMove={(event) => {
+                  onMouseMove={isMobile ? undefined : (event) => {
                     updateListPreviewPointer(event.currentTarget, event.clientX, event.clientY);
                   }}
                   data-cursor="view"
@@ -498,7 +498,7 @@ export function Works() {
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              onMouseMove={() => {
+              onMouseMove={isMobile ? undefined : () => {
                 setShowViewerControls(true);
               }}
             >

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { RevealSubheading } from "@/components/reveal-title";
 
 interface Testimonial {
@@ -31,9 +32,20 @@ const testimonials: Testimonial[] = [
 ];
 
 export function Testimonials() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const apply = () => setIsMobile(query.matches);
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, []);
+
   const itemsA = [...testimonials, ...testimonials];
   const rotated = [...testimonials.slice(1), testimonials[0]];
   const itemsB = [...rotated, ...rotated];
+  const columns = isMobile ? [itemsA] : [itemsA, itemsB];
 
   return (
     <section id="testimonials" className="relative px-4 py-14 md:px-10 md:py-20">
@@ -47,7 +59,7 @@ export function Testimonials() {
         </div>
 
         <div className="grid grid-cols-1 border hairline bg-[color-mix(in_srgb,var(--background)_72%,transparent)] backdrop-blur-md md:grid-cols-2">
-          {[itemsA, itemsB].map((columnItems, columnIdx) => (
+          {columns.map((columnItems, columnIdx) => (
             <div
               key={columnIdx}
               className={`h-[320px] overflow-hidden md:h-[340px] ${
