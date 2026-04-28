@@ -47,9 +47,6 @@ export default function AboutPage() {
                   className="h-full w-full object-cover"
                   draggable={false}
                 />
-                <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]">
-                  Hover for perspective effect
-                </span>
               </HoverPerspective>
 
               <div className="mt-4 border-t hairline pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
