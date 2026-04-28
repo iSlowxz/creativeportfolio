@@ -9,35 +9,37 @@ import { LocalTime } from "@/components/local-time";
  * Adapted to a works-first portfolio rhythm.
  */
 export function Hero() {
+  type HeroChunk = { text: string; accent?: boolean };
+
   const audienceCards = [
     {
       label: "For anyone",
       lines: [
-        "Hello there, I'm a",
-        "designer who cares",
-        "about making beautiful",
-        "things that help people.",
+        [{ text: "Hello there, I'm a" }],
+        [{ text: "designer who cares" }],
+        [{ text: "about making " }, { text: "beautiful", accent: true }],
+        [{ text: "things that help people." }],
       ],
     },
     {
       label: "Recruiters",
       lines: [
-        "I'm a multidisciplinary",
-        "designer focused on",
-        "clear systems, visual",
-        "rhythm, and real outcomes.",
+        [{ text: "I'm a " }, { text: "multidisciplinary", accent: true }],
+        [{ text: "designer focused on" }],
+        [{ text: "clear systems, visual" }],
+        [{ text: "rhythm, and real outcomes." }],
       ],
     },
     {
       label: "Engineers",
       lines: [
-        "I design with dev flow",
-        "in mind - structured,",
-        "handoff-ready, and built",
-        "to ship smoothly.",
+        [{ text: "I design with " }, { text: "dev flow", accent: true }],
+        [{ text: "in mind - structured," }],
+        [{ text: "handoff-ready, and built" }],
+        [{ text: "to ship smoothly." }],
       ],
     },
-  ] as const;
+  ] satisfies Array<{ label: string; lines: HeroChunk[][] }>;
 
   const [activeAudience, setActiveAudience] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -87,9 +89,17 @@ export function Hero() {
             style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
             className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
           >
-            {audienceCards[activeAudience].lines.map((line) => (
-              <span key={line} className="block">
-                {line}
+            {audienceCards[activeAudience].lines.map((line, lineIndex) => (
+              <span key={`${audienceCards[activeAudience].label}-${lineIndex}`} className="block">
+                {line.map((chunk) =>
+                  chunk.accent ? (
+                    <span key={chunk.text} className="font-serif italic serif-accent-hover">
+                      {chunk.text}
+                    </span>
+                  ) : (
+                    <span key={chunk.text}>{chunk.text}</span>
+                  ),
+                )}
               </span>
             ))}
           </motion.h1>

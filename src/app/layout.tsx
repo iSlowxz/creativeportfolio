@@ -5,6 +5,7 @@ import {
   Geist_Mono,
   Instrument_Serif,
 } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Cursor } from "@/components/cursor";
 import { IntroOverlay } from "@/components/intro-overlay";
@@ -54,6 +55,14 @@ export default function RootLayout({
       className={`has-cursor ${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="grain min-h-full flex flex-col">
+        <Script
+          id="theme-boot"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var m=localStorage.getItem('mode');if(m==='dark'){document.documentElement.classList.add('invert-mode')}else if(m==='light'){document.documentElement.classList.remove('invert-mode')}}catch(e){}",
+          }}
+        />
         <ScrambleProvider />
         <Cursor />
         <IntroOverlay />
