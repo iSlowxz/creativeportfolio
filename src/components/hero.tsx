@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { useRef, useState } from "react";
 import { LocalTime } from "@/components/local-time";
 
 /**
@@ -9,7 +9,37 @@ import { LocalTime } from "@/components/local-time";
  * Adapted to a works-first portfolio rhythm.
  */
 export function Hero() {
-  const audiences = ["For anyone", "Recruiters", "Engineers"];
+  const audienceCards = [
+    {
+      label: "For anyone",
+      lines: [
+        "Hello there, I'm a",
+        "designer who cares",
+        "about making beautiful",
+        "things that help people.",
+      ],
+    },
+    {
+      label: "Recruiters",
+      lines: [
+        "I'm a multidisciplinary",
+        "designer focused on",
+        "clear systems, visual",
+        "rhythm, and real outcomes.",
+      ],
+    },
+    {
+      label: "Engineers",
+      lines: [
+        "I design with dev flow",
+        "in mind - structured,",
+        "handoff-ready, and built",
+        "to ship smoothly.",
+      ],
+    },
+  ] as const;
+
+  const [activeAudience, setActiveAudience] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -29,28 +59,41 @@ export function Hero() {
     >
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10">
         <ul className="col-span-12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.16em]">
-          {audiences.map((label, idx) => (
+          {audienceCards.map((item, idx) => (
             <li
-              key={label}
-              className={idx === 0 ? "text-[var(--foreground)]" : "text-[var(--ash)]"}
+              key={item.label}
             >
-              {label}
+              <button
+                type="button"
+                aria-pressed={idx === activeAudience}
+                onClick={() => setActiveAudience(idx)}
+                className={`transition-colors duration-200 ${
+                  idx === activeAudience ? "text-[var(--foreground)]" : "text-[var(--ash)] hover:text-[var(--foreground)]"
+                }`}
+              >
+                {item.label}
+              </button>
             </li>
           ))}
         </ul>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
-          className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
-        >
-          <span className="block">Hello there, I&apos;m a</span>
-          <span className="block">designer who cares</span>
-          <span className="block">about making beautiful</span>
-          <span className="block">things that help people.</span>
-        </motion.h1>
+        <AnimatePresence mode="wait">
+          <motion.h1
+            key={audienceCards[activeAudience].label}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
+            className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
+          >
+            {audienceCards[activeAudience].lines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </motion.h1>
+        </AnimatePresence>
 
         <motion.div
           initial={{ opacity: 0 }}
