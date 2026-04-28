@@ -254,7 +254,7 @@ body::-webkit-scrollbar {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: .03;
+  opacity: .055;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
@@ -266,13 +266,13 @@ body::-webkit-scrollbar {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: .017;
-  mix-blend-mode: soft-light;
+  opacity: .03;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n2'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='3' seed='7' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n2)'/></svg>");
 }
 
-.invert-mode .grain::before { opacity: .026; }
-.invert-mode .grain::after { opacity: .014; }
+.invert-mode .grain::before { opacity: .04; }
+.invert-mode .grain::after { opacity: .022; }
 
 @keyframes mode-flicker {
   0% { filter: brightness(1) contrast(1); opacity: 1; }
