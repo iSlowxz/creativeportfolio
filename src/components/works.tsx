@@ -211,17 +211,12 @@ export function Works() {
                     type="button"
                     onClick={() => setActiveSlug(p.slug)}
                     data-cursor="view"
-                    className="grid w-full grid-cols-12 items-center gap-x-4 gap-y-4 py-6 text-left"
+                    className="grid w-full grid-cols-12 items-center gap-x-4 gap-y-3 py-5 text-left"
                   >
                     <span className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
                       {p.index}
                     </span>
-                    <div className="col-span-12 overflow-hidden border hairline bg-[var(--paper)]">
-                      <div className="aspect-[4/5]">
-                        {coverBySlug[p.slug]}
-                      </div>
-                    </div>
-                    <span className="col-span-12 text-[clamp(1.35rem,8vw,2.8rem)] leading-none tracking-[-0.02em]">
+                    <span className="col-span-12 text-[clamp(1.6rem,8vw,2.8rem)] leading-none tracking-[-0.02em]">
                       {p.title}
                     </span>
                     <span className="col-span-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
