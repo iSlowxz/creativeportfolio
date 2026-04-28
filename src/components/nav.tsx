@@ -35,6 +35,7 @@ export function Nav() {
 
   const LogoName = () => {
     const full = "MARK ANGELO CORNEJO";
+    const compact = "M";
     const [chars, setChars] = useState(full.split(""));
     const rafMapRef = useRef<Map<number, number>>(new Map());
     const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -85,15 +86,18 @@ export function Nav() {
 
     return (
       <span data-no-scramble="true" className="font-sans font-semibold tracking-[0.08em]">
-        {chars.map((ch, i) => (
-          <span
-            key={`${i}-${full[i]}`}
-            onMouseEnter={() => run(i)}
-            className="inline-block"
-          >
-            {ch}
-          </span>
-        ))}
+        <span className="inline-block md:hidden">{hidden ? compact : full}</span>
+        <span className="hidden md:inline">
+          {chars.map((ch, i) => (
+            <span
+              key={`${i}-${full[i]}`}
+              onMouseEnter={() => run(i)}
+              className="inline-block"
+            >
+              {ch}
+            </span>
+          ))}
+        </span>
       </span>
     );
   };
@@ -107,7 +111,7 @@ export function Nav() {
         className="fixed inset-x-0 top-0 z-40 px-4 pt-3 md:px-10 md:pt-5"
       >
         <nav
-          className={`mx-auto grid max-w-[1400px] grid-cols-2 items-center rounded-md border px-2.5 py-2 md:grid-cols-3 md:px-3 md:py-2.5 transition-[background-color,border-color,backdrop-filter] duration-500 ${
+          className={`mx-auto grid max-w-[1400px] grid-cols-[auto_1fr] items-center rounded-md border px-2.5 py-2 md:grid-cols-3 md:px-3 md:py-2.5 transition-[background-color,border-color,backdrop-filter] duration-500 ${
             scrolled
               ? "hairline border-[color-mix(in_srgb,var(--rule)_70%,transparent)] bg-[color-mix(in_srgb,var(--background)_72%,transparent)] backdrop-blur-md"
               : "border-transparent bg-transparent backdrop-blur-none"
@@ -117,7 +121,7 @@ export function Nav() {
             href="/"
             data-cursor="link"
             data-no-scramble="true"
-            className="inline-flex items-baseline font-mono text-[10px] uppercase tracking-[0.1em] md:text-[11px] md:tracking-[0.12em]"
+            className="inline-flex min-w-0 items-baseline font-mono text-[10px] uppercase tracking-[0.1em] md:text-[11px] md:tracking-[0.12em]"
           >
             <LogoName />
           </Link>
@@ -152,7 +156,7 @@ export function Nav() {
             ))}
           </ul>
 
-        <div className="flex items-center justify-end gap-3 font-mono text-[10px] uppercase tracking-[0.16em] md:gap-4 md:text-[11px] md:tracking-[0.2em]">
+        <div className="hidden items-center justify-end gap-3 font-mono text-[10px] uppercase tracking-[0.16em] md:flex md:gap-4 md:text-[11px] md:tracking-[0.2em]">
             <span className="hidden items-center gap-2 md:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--foreground)] opacity-60" />
@@ -163,7 +167,7 @@ export function Nav() {
           </div>
 
           {/* mobile links */}
-          <ul className="col-span-2 mt-2 flex items-center justify-center gap-5 border-t hairline pt-2 font-mono text-[10px] uppercase tracking-[0.12em] md:hidden">
+          <ul className="flex min-w-0 items-center justify-end gap-4 font-mono text-[10px] uppercase tracking-[0.12em] md:hidden">
             {links.map(([label, href]) => (
               <li key={label}>
                 {href.startsWith("mailto:") ? (

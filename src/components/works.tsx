@@ -40,6 +40,7 @@ export function Works() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [listHoverSlug, setListHoverSlug] = useState<string | null>(null);
   const [listPreviewPos, setListPreviewPos] = useState({ x: 0, y: 0 });
   const [listPreviewTilt, setListPreviewTilt] = useState({ rotateX: 0, rotateY: 0 });
@@ -95,9 +96,10 @@ export function Works() {
 
   useEffect(() => {
     if (activeImageIndex === null || !showViewerControls) return;
+    if (isMobile) return;
     const id = window.setTimeout(() => setShowViewerControls(false), 1200);
     return () => window.clearTimeout(id);
-  }, [activeImageIndex, showViewerControls]);
+  }, [activeImageIndex, isMobile, showViewerControls]);
 
   useEffect(() => {
     const shouldLockScroll = activeSlug !== null || activeImageIndex !== null;
@@ -147,6 +149,18 @@ export function Works() {
       rotateX: normalizedY * -3.2,
       rotateY: normalizedX * 3.8,
     });
+  };
+
+  const showPreviousImage = () => {
+    setActiveImageIndex((prev) =>
+      prev === null ? 0 : (prev - 1 + activeMediaSet.length) % activeMediaSet.length,
+    );
+  };
+
+  const showNextImage = () => {
+    setActiveImageIndex((prev) =>
+      prev === null ? 0 : (prev + 1) % activeMediaSet.length,
+    );
   };
 
   return (
@@ -528,6 +542,23 @@ export function Works() {
               onMouseMove={isMobile ? undefined : () => {
                 setShowViewerControls(true);
               }}
+              onTouchStart={(event) => {
+                setShowViewerControls(true);
+                setTouchStartX(event.touches[0]?.clientX ?? null);
+              }}
+              onTouchEnd={(event) => {
+                const endX = event.changedTouches[0]?.clientX;
+                if (touchStartX === null || endX === undefined) {
+                  setTouchStartX(null);
+                  return;
+                }
+                const deltaX = endX - touchStartX;
+                if (Math.abs(deltaX) >= 40) {
+                  if (deltaX < 0) showNextImage();
+                  else showPreviousImage();
+                }
+                setTouchStartX(null);
+              }}
             >
               <Image
                 src={activeMediaSet[activeImageIndex]}
@@ -545,13 +576,7 @@ export function Works() {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
                       type="button"
-                      onClick={() =>
-                        setActiveImageIndex(
-                          (prev) =>
-                            (prev === null ? 0 : prev - 1 + activeMediaSet.length) %
-                            activeMediaSet.length,
-                        )
-                      }
+                      onClick={showPreviousImage}
                       data-cursor="link"
                       className="absolute left-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center border hairline rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
                       aria-label="Previous image"
@@ -564,11 +589,7 @@ export function Works() {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
                       type="button"
-                      onClick={() =>
-                        setActiveImageIndex(
-                          (prev) => (prev === null ? 0 : (prev + 1) % activeMediaSet.length),
-                        )
-                      }
+                      onClick={showNextImage}
                       data-cursor="link"
                       className="absolute right-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center border hairline rounded-none bg-[var(--background)]/78 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)] backdrop-blur-sm transition-colors duration-300 hover:text-[var(--vermilion)]"
                       aria-label="Next image"
@@ -600,7 +621,7 @@ export function Works() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border hairline rounded-none bg-[var(--background)]/82 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
                   >
-                    Use Arrow Keys • ESC
+                    {isMobile ? "Swipe left or right" : "Use Arrow Keys • ESC"}
                   </motion.p>
                 ) : null}
               </AnimatePresence>
