@@ -82,10 +82,10 @@ export function Hero() {
         <AnimatePresence mode="wait">
           <motion.h1
             key={audienceCards[activeAudience].label}
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, filter: "blur(2px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(2px)" }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
             className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
           >

@@ -3,7 +3,7 @@
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { Toolbar } from "@/components/toolbar";
 
 /**
@@ -14,6 +14,7 @@ export function Nav() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [logoExpanded, setLogoExpanded] = useState(false);
   const links: Array<[string, string]> = [
     ["Works", "/#works"],
     ["About", "/about"],
@@ -33,20 +34,41 @@ export function Nav() {
     setScrolled(latest > 8);
   });
 
+  useEffect(() => {
+    setLogoExpanded(false);
+  }, [pathname]);
+
+  const onLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (window.matchMedia("(max-width: 767px)").matches && !logoExpanded) {
+      e.preventDefault();
+      setLogoExpanded(true);
+    }
+  };
+
   const LogoName = () => {
     const full = "MARK ANGELO CORNEJO";
-    const compact = "M";
+    const compact = "MA";
 
     return (
       <span data-no-scramble="true" className="font-sans font-semibold tracking-[0.08em]">
-        <span className="inline-block md:hidden">{compact}</span>
+        <span className="inline-flex items-center md:hidden">
+          <span>{compact}</span>
+          <span
+            className={`overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              logoExpanded ? "max-w-[22ch] opacity-100" : "max-w-0 opacity-0"
+            }`}
+            aria-hidden="true"
+          >
+            {full.slice(2)}
+          </span>
+        </span>
         <span className="hidden items-center md:inline-flex">
           <span>{compact}</span>
           <span
-            className="overflow-hidden whitespace-nowrap pl-0 opacity-0 max-w-0 transition-[max-width,opacity,padding-left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:max-w-[22ch] group-hover/logo:pl-1.5 group-hover/logo:opacity-100"
+            className="overflow-hidden whitespace-nowrap pl-0 opacity-0 max-w-0 transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:max-w-[22ch] group-hover/logo:opacity-100"
             aria-hidden="true"
           >
-            {full.slice(1)}
+            {full.slice(2)}
           </span>
         </span>
       </span>
@@ -70,6 +92,7 @@ export function Nav() {
         >
           <Link
             href="/"
+            onClick={onLogoClick}
             data-cursor="link"
             data-no-scramble="true"
             className="group/logo inline-flex min-w-0 items-baseline font-mono text-[10px] uppercase tracking-[0.1em] md:text-[11px] md:tracking-[0.12em]"
