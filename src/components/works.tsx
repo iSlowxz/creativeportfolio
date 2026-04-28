@@ -470,7 +470,7 @@ export function Works() {
                           </section>
                         </div>
                         <div className="col-span-12 p-3 pb-5 md:col-span-7 md:flex md:items-center md:p-4">
-                          <div className="grid w-full grid-cols-3 gap-1.5">
+                          <div className="grid w-full grid-cols-3 gap-0">
                             {Array.from({ length: 9 }).map((_, index) => {
                               const src = mediaSet[index % (mediaSet.length || 1)];
                               return (
