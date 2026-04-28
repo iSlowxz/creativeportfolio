@@ -221,15 +221,20 @@ body::-webkit-scrollbar {
 }
 
 .serif-accent-hover {
+  color: var(--tone-a);
   transition: color 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .serif-accent-hover:hover {
-  color: var(--tone-a);
+  color: var(--foreground);
+}
+
+.invert-mode .serif-accent-hover {
+  color: color-mix(in srgb, var(--tone-a) 64%, white);
 }
 
 .invert-mode .serif-accent-hover:hover {
-  color: color-mix(in srgb, var(--tone-a) 64%, white);
+  color: var(--foreground);
 }
 
 /* removed marquee-specific styles for Swiss works-first layout */
