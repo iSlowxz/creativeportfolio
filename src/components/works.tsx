@@ -173,7 +173,7 @@ export function Works() {
             </h2>
           </RevealSubheading>
 
-          <div className="-mx-1 hidden items-center gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:flex md:px-0">
+          <div className="-mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-1 md:mx-0 md:px-0">
             <div className="inline-flex shrink-0 border hairline">
               <button
                 type="button"
