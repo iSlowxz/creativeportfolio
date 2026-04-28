@@ -143,16 +143,36 @@ export default function AboutPage() {
                 </RevealSubheading>
               </div>
             <div className="col-span-12 grid grid-cols-2 gap-y-2 font-mono text-[11px] uppercase tracking-[0.16em] md:col-span-5">
-              <a href="https://instagram.com" className="link-standard">
+              <a
+                href="https://instagram.com/islowfps"
+                target="_blank"
+                rel="noreferrer"
+                className="link-standard"
+              >
                 Instagram
               </a>
-              <a href="https://dribbble.com" className="link-standard">
-                Dribbble
+              <a
+                href="https://github.com/iSlowxz/"
+                target="_blank"
+                rel="noreferrer"
+                className="link-standard"
+              >
+                GitHub
               </a>
-              <a href="https://behance.net" className="link-standard">
+              <a
+                href="https://www.behance.net/zmrkslow"
+                target="_blank"
+                rel="noreferrer"
+                className="link-standard"
+              >
                 Behance
               </a>
-              <a href="https://linkedin.com" className="link-standard">
+              <a
+                href="https://www.linkedin.com/in/zmcslow"
+                target="_blank"
+                rel="noreferrer"
+                className="link-standard"
+              >
                 LinkedIn
               </a>
             </div>
