@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LocalTime } from "@/components/local-time";
 
 /**
@@ -14,14 +14,14 @@ export function Hero() {
 
   const audienceCards = [
     {
-      label: "For anyone",
+      label: "FOR ANYONE",
       lines: [
         [{ text: "Hello there, I'm a designer who cares about making " }, { text: "beautiful", accent: true }],
         [{ text: "tools that simplify complex human tasks." }],
       ],
     },
     {
-      label: "Recruiters",
+      label: "RECRUITERS",
       lines: [
         [{ text: "I'm a " }, { text: "multidisciplinary", accent: true }],
         [{ text: "designer focused on" }],
@@ -30,7 +30,7 @@ export function Hero() {
       ],
     },
     {
-      label: "Engineers",
+      label: "ENGINEERS",
       lines: [
         [{ text: "I’m " }, { text: "{highly_technical}", accent: true }, { text: ", speak " }, { text: "\"fluent_logic\"", accent: true }, { text: "," }],
         [{ text: "and build handoff-ready UI with " }, { text: "[react]", accent: true }, { text: " + " }, { text: "[tailwind]", accent: true }, { text: "." }],
@@ -40,6 +40,7 @@ export function Hero() {
 
   const [activeAudience, setActiveAudience] = useState(0);
   const [slideDirection, setSlideDirection] = useState<SlideDirection>(1);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -50,6 +51,14 @@ export function Hero() {
   const titleScale = useTransform(scrollYProgress, [0, 1], [1, 0.985]);
   const metaY = useTransform(scrollYProgress, [0, 1], [0, -14]);
   const metaOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setIsMobile(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
 
   const onAudienceChange = (nextIndex: number) => {
     if (nextIndex === activeAudience) return;
@@ -83,39 +92,45 @@ export function Hero() {
           ))}
         </ul>
 
-        <AnimatePresence mode="wait">
-          <motion.h1
-            key={audienceCards[activeAudience].label}
-            initial={{
-              opacity: 0,
-              x: slideDirection * 40,
-              filter: "blur(0px)",
-            }}
-            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            exit={{
-              opacity: 0,
-              x: slideDirection * -40,
-              filter: "blur(0px)",
-            }}
-            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
-            className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
-          >
-            {audienceCards[activeAudience].lines.map((line, lineIndex) => (
-              <span key={`${audienceCards[activeAudience].label}-${lineIndex}`} className="block">
-                {line.map((chunk) =>
-                  chunk.accent ? (
-                    <span key={chunk.text} className="font-serif italic serif-accent-hover">
-                      {chunk.text}
-                    </span>
-                  ) : (
-                    <span key={chunk.text}>{chunk.text}</span>
-                  ),
-                )}
-              </span>
-            ))}
-          </motion.h1>
-        </AnimatePresence>
+        <div className="col-span-12 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={audienceCards[activeAudience].label}
+              initial={
+                isMobile
+                  ? { opacity: 1, x: 0, filter: "blur(0px)" }
+                  : { opacity: 0, x: slideDirection * 40, filter: "blur(0px)" }
+              }
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              exit={
+                isMobile
+                  ? { opacity: 1, x: 0, filter: "blur(0px)" }
+                  : { opacity: 0, x: slideDirection * -40, filter: "blur(0px)" }
+              }
+              transition={
+                isMobile
+                  ? { duration: 0 }
+                  : { duration: 0.26, ease: [0.22, 1, 0.36, 1] }
+              }
+              style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
+              className="max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
+            >
+              {audienceCards[activeAudience].lines.map((line, lineIndex) => (
+                <span key={`${audienceCards[activeAudience].label}-${lineIndex}`} className="block">
+                  {line.map((chunk) =>
+                    chunk.accent ? (
+                      <span key={chunk.text} className="font-serif italic serif-accent-hover">
+                        {chunk.text}
+                      </span>
+                    ) : (
+                      <span key={chunk.text}>{chunk.text}</span>
+                    ),
+                  )}
+                </span>
+              ))}
+            </motion.h1>
+          </AnimatePresence>
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}

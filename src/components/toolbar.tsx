@@ -199,7 +199,7 @@ export function Toolbar({ className = "" }: { className?: string }) {
             className="flex items-center gap-2.5 overflow-hidden"
             initial={false}
             animate={{
-              width: collapsed ? 0 : isMd ? 236 : 202,
+              width: collapsed ? 0 : isMd ? 236 : 170,
               opacity: collapsed ? 0 : 1,
               x: collapsed ? -8 : 0,
               marginRight: collapsed ? 0 : 2,
@@ -220,17 +220,21 @@ export function Toolbar({ className = "" }: { className?: string }) {
                 onClick={() => setInverted((v) => !v)}
                 hint="D"
               />
-              <span aria-hidden className="h-2.5 w-px bg-[var(--rule)]" />
-              <button
-                type="button"
-                data-cursor="link"
-                aria-expanded={helpOpen}
-                onClick={() => setHelpOpen((v) => !v)}
-                className="inline-flex h-5 w-5 items-center justify-center rounded-full border hairline font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--vermilion)]"
-              >
-                <CircleHelp size={11} strokeWidth={1.75} />
-              </button>
-              <span aria-hidden className="h-2.5 w-px bg-[var(--rule)]" />
+              {isMd ? (
+                <>
+                  <span aria-hidden className="h-2.5 w-px bg-[var(--rule)]" />
+                  <button
+                    type="button"
+                    data-cursor="link"
+                    aria-expanded={helpOpen}
+                    onClick={() => setHelpOpen((v) => !v)}
+                    className="inline-flex h-5 w-5 items-center justify-center rounded-full border hairline font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--vermilion)]"
+                  >
+                    <CircleHelp size={11} strokeWidth={1.75} />
+                  </button>
+                  <span aria-hidden className="h-2.5 w-px bg-[var(--rule)]" />
+                </>
+              ) : null}
             </>
           </motion.div>
           <button
@@ -267,7 +271,9 @@ export function Toolbar({ className = "" }: { className?: string }) {
               pointerEvents: helpOpen ? "auto" : "none",
             }}
             transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute bottom-[calc(100%+10px)] right-0 min-w-[240px] border hairline bg-[color-mix(in_srgb,var(--background)_92%,transparent)] p-3 backdrop-blur-md"
+            className={`absolute bottom-[calc(100%+10px)] right-0 min-w-[240px] border hairline bg-[color-mix(in_srgb,var(--background)_92%,transparent)] p-3 backdrop-blur-md ${
+              isMd ? "" : "hidden"
+            }`}
           >
             <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--foreground)]">
               Shortcuts

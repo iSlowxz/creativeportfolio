@@ -49,7 +49,7 @@ export function Contact() {
           <ul className="flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ash)] md:items-end">
             <li>
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/islowfps"
                 data-cursor="link"
                 className="link-standard inline-flex items-center gap-1.5"
               >
@@ -59,17 +59,17 @@ export function Contact() {
             </li>
             <li>
               <a
-                href="https://dribbble.com"
+                href="https://github.com/iSlowxz/"
                 data-cursor="link"
                 className="link-standard inline-flex items-center gap-1.5"
               >
-                <span>Dribbble</span>
+                <span>GitHub</span>
                 <ArrowUpRight aria-hidden size={12} strokeWidth={1.75} />
               </a>
             </li>
             <li>
               <a
-                href="https://behance.net"
+                href="https://www.behance.net/zmrkslow"
                 data-cursor="link"
                 className="link-standard inline-flex items-center gap-1.5"
               >
@@ -79,7 +79,7 @@ export function Contact() {
             </li>
             <li>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/zmcslow"
                 data-cursor="link"
                 className="link-standard inline-flex items-center gap-1.5"
               >
