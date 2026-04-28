@@ -6,6 +6,7 @@ import {
   Instrument_Serif,
 } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { Cursor } from "@/components/cursor";
 import { IntroOverlay } from "@/components/intro-overlay";
@@ -67,6 +68,7 @@ export default function RootLayout({
         <Cursor />
         <IntroOverlay />
         {children}
+        <Analytics />
       </body>
     </html>
   );
