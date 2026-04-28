@@ -27,10 +27,7 @@ export function IntroOverlay() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (reduceMotion) {
-      setVisible(false);
-      return;
-    }
+    if (reduceMotion) return;
 
     document.documentElement.classList.add("intro-locked");
 
@@ -51,7 +48,7 @@ export function IntroOverlay() {
 
   return (
     <AnimatePresence>
-      {visible && (
+      {!reduceMotion && visible && (
         <motion.div
           key="intro-overlay"
           initial={{ y: 0 }}

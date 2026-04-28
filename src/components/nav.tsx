@@ -48,10 +48,6 @@ export function Nav() {
     setScrolled(latest > 8);
   });
 
-  useEffect(() => {
-    setLogoExpanded(false);
-  }, [pathname]);
-
   const onLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (window.matchMedia("(max-width: 767px)").matches && !logoExpanded) {
       e.preventDefault();
@@ -59,7 +55,7 @@ export function Nav() {
     }
   };
 
-  const LogoName = () => {
+  const renderLogoName = () => {
     const full = "MARK ANGELO CORNEJO";
     const compact = "MA";
 
@@ -111,7 +107,7 @@ export function Nav() {
             data-no-scramble="true"
             className="group/logo inline-flex min-w-0 items-baseline font-mono text-[10px] uppercase tracking-[0.1em] md:text-[11px] md:tracking-[0.12em]"
           >
-            <LogoName />
+            {renderLogoName()}
           </Link>
 
           <ul className="hidden justify-center gap-8 font-mono text-[11px] uppercase tracking-[0.12em] md:flex">

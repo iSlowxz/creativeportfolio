@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import type { PortfolioType } from "@/lib/image-plan";
 import { getImagePlan } from "@/lib/image-plan";
@@ -30,11 +30,11 @@ export function ProjectImagePlan({
       : [];
 
   const trackCount = compact ? Math.min(4, slots.length) : Math.min(5, slots.length);
-  const startIndex = useMemo(() => {
+  const startIndex = (() => {
     if (slots.length <= trackCount) return 0;
     const centeredStart = activeIndex - Math.floor(trackCount / 2);
     return Math.max(0, Math.min(centeredStart, slots.length - trackCount));
-  }, [activeIndex, slots.length, trackCount]);
+  })();
   const visibleSlots = slots.slice(startIndex, startIndex + trackCount);
 
   const getAspectRatio = (ratio: string) => {

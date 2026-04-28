@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { createPortal } from "react-dom";
 
 /**
@@ -11,10 +11,8 @@ import { createPortal } from "react-dom";
  * always covers the viewport, even when its parent is transformed.
  */
 export function GridOverlay({ visible }: { visible: boolean }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   const columns = useMemo(() => Array.from({ length: 12 }), []);
-  if (!mounted) return null;
+  if (typeof document === "undefined") return null;
 
   const overlay = (
     <motion.div

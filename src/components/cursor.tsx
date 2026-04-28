@@ -22,15 +22,16 @@ export function Cursor() {
   const y = useMotionValue(-100);
 
   const [variant, setVariant] = useState<Variant>("default");
-  const [enabled, setEnabled] = useState(false);
+  const [enabled] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  });
 
   useEffect(() => {
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!fine) {
+    if (!enabled) {
       document.documentElement.classList.remove("has-cursor");
       return;
     }
-    setEnabled(true);
 
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX);
@@ -67,7 +68,7 @@ export function Cursor() {
       window.removeEventListener("mouseout", onOut);
       window.removeEventListener("mouseleave", onLeave);
     };
-  }, [x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 

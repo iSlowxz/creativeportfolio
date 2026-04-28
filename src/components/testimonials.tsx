@@ -88,7 +88,7 @@ export function Testimonials() {
                         data-no-scramble="true"
                         className="text-[clamp(0.98rem,1.2vw,1.2rem)] leading-[1.35] tracking-[-0.01em]"
                       >
-                        "{item.quote}"
+                        &ldquo;{item.quote}&rdquo;
                       </p>
                       <div className="mt-4">
                         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--foreground)]">

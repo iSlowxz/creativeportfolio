@@ -40,12 +40,15 @@ export function Works() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [isAndroid, setIsAndroid] = useState(false);
+  const [isAndroid] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return /android/i.test(window.navigator.userAgent);
+  });
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [listHoverSlug, setListHoverSlug] = useState<string | null>(null);
   const [listPreviewPos, setListPreviewPos] = useState({ x: 0, y: 0 });
   const [listPreviewTilt, setListPreviewTilt] = useState({ rotateX: 0, rotateY: 0 });
-  const [showViewerHint, setShowViewerHint] = useState(false);
+  const showViewerHint = false;
   const [showViewerControls, setShowViewerControls] = useState(true);
   const visible = useMemo(() => worksData, []);
   const activeWork = useMemo(
@@ -65,7 +68,6 @@ export function Works() {
       setLayout(mobile ? "list" : "grid");
     };
     apply();
-    setIsAndroid(/android/i.test(window.navigator.userAgent));
     query.addEventListener("change", apply);
     return () => query.removeEventListener("change", apply);
   }, []);
@@ -124,18 +126,6 @@ export function Works() {
       body.style.paddingRight = previousPaddingRight;
     };
   }, [activeSlug, activeImageIndex, isMobile]);
-
-  useEffect(() => {
-    if (activeImageIndex === null) {
-      setShowViewerHint(false);
-      setShowViewerControls(true);
-      return;
-    }
-    setShowViewerHint(true);
-    setShowViewerControls(true);
-    const id = window.setTimeout(() => setShowViewerHint(false), 2600);
-    return () => window.clearTimeout(id);
-  }, [activeImageIndex]);
 
   const updateListPreviewPointer = (
     target: EventTarget & HTMLButtonElement,

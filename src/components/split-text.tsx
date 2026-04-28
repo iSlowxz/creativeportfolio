@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
-import { createElement, useRef, type ReactElement } from "react";
+import { motion } from "motion/react";
+import { createElement, type ReactElement } from "react";
 
 type AllowedTag = "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4";
 
@@ -26,10 +26,10 @@ export function SplitText({
   delay = 0,
   stagger = 0.02,
   by = "char",
-  once = true,
+  once: _once = true,
 }: SplitTextProps): ReactElement {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once, margin: "-10% 0px" });
+  void _once;
+  const inView = true;
 
   const tokens =
     by === "word" ? text.split(/(\s+)/) : text.split("");
@@ -67,7 +67,7 @@ export function SplitText({
 
   return createElement(
     as,
-    { ref, className, "aria-label": text },
+    { className, "aria-label": text },
     children,
   );
 }

@@ -51,30 +51,21 @@ function ToggleButton({
 }
 
 export function Toolbar({ className = "" }: { className?: string }) {
-  const [grid, setGrid] = useState(false);
-  const [inverted, setInverted] = useState(false);
+  const [grid, setGrid] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("grid") === "on";
+  });
+  const [inverted, setInverted] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("mode") === "dark";
+  });
   const [helpOpen, setHelpOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [isMd, setIsMd] = useState(false);
-  const [prefsReady, setPrefsReady] = useState(false);
-
-  // Restore persisted toolbar prefs on mount.
-  useEffect(() => {
-    const savedMode = window.localStorage.getItem("mode");
-    const savedGrid = window.localStorage.getItem("grid");
-
-    if (savedMode === "dark") setInverted(true);
-    if (savedMode === "light") setInverted(false);
-    if (savedGrid === "on") setGrid(true);
-    if (savedGrid === "off") setGrid(false);
-
-    setPrefsReady(true);
-  }, []);
 
   // apply paper/ink palette to <html>
   useEffect(() => {
-    if (!prefsReady) return;
     document.documentElement.classList.toggle("invert-mode", inverted);
     document.documentElement.classList.remove("mode-flicker");
     // Re-trigger each time mode flips so paper/ink has a slight analog pulse.
@@ -85,13 +76,12 @@ export function Toolbar({ className = "" }: { className?: string }) {
       }, 420);
     });
     window.localStorage.setItem("mode", inverted ? "dark" : "light");
-  }, [inverted, prefsReady]);
+  }, [inverted]);
 
   // persist grid preference
   useEffect(() => {
-    if (!prefsReady) return;
     window.localStorage.setItem("grid", grid ? "on" : "off");
-  }, [grid, prefsReady]);
+  }, [grid]);
 
   // keyboard shortcuts (skip inputs/textareas):
   //   G => grid, D => dark/light mode, ? => help
