@@ -40,6 +40,7 @@ export function Works() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isAndroid, setIsAndroid] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [listHoverSlug, setListHoverSlug] = useState<string | null>(null);
   const [listPreviewPos, setListPreviewPos] = useState({ x: 0, y: 0 });
@@ -64,6 +65,7 @@ export function Works() {
       setLayout(mobile ? "list" : "grid");
     };
     apply();
+    setIsAndroid(/android/i.test(window.navigator.userAgent));
     query.addEventListener("change", apply);
     return () => query.removeEventListener("change", apply);
   }, []);
@@ -374,19 +376,44 @@ export function Works() {
         {activeSlug ? (
           <motion.div
             className={`fixed inset-0 z-[70] flex items-end justify-center bg-black/45 px-0 py-0 md:items-center md:px-4 md:py-8 ${
-              isMobile ? "" : "backdrop-blur-[1px]"
+              isMobile || isAndroid ? "" : "backdrop-blur-[1px]"
             }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={isAndroid ? { duration: 0.12, ease: "linear" } : undefined}
             onClick={() => setActiveSlug(null)}
           >
             <motion.article
-              initial={isMobile ? { opacity: 0, y: 10 } : { opacity: 0, y: 16, scale: 0.98 }}
-              animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0, scale: 1 }}
-              exit={isMobile ? { opacity: 0, y: 8 } : { opacity: 0, y: 12, scale: 0.98 }}
-              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="popup-outline flex h-[100dvh] w-full max-w-[1180px] flex-col overflow-hidden border-0 bg-[var(--paper)] md:max-h-[92vh] md:h-auto md:border md:rounded-none"
+              initial={
+                isAndroid
+                  ? { opacity: 0 }
+                  : isMobile
+                    ? { opacity: 0, y: 10 }
+                    : { opacity: 0, y: 16, scale: 0.98 }
+              }
+              animate={
+                isAndroid
+                  ? { opacity: 1 }
+                  : isMobile
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 1, y: 0, scale: 1 }
+              }
+              exit={
+                isAndroid
+                  ? { opacity: 0 }
+                  : isMobile
+                    ? { opacity: 0, y: 8 }
+                    : { opacity: 0, y: 12, scale: 0.98 }
+              }
+              transition={
+                isAndroid
+                  ? { duration: 0.12, ease: "linear" }
+                  : { duration: 0.24, ease: [0.22, 1, 0.36, 1] }
+              }
+              className={`popup-outline flex h-[100svh] w-full max-w-[1180px] flex-col overflow-hidden border-0 bg-[var(--paper)] md:max-h-[92vh] md:h-auto md:border md:rounded-none ${
+                isAndroid ? "shadow-none" : ""
+              }`}
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -526,19 +553,22 @@ export function Works() {
         {activeImageIndex !== null && activeMediaSet.length ? (
           <motion.div
             className={`fixed inset-0 z-[95] flex items-center justify-center bg-black/68 p-4 ${
-              isMobile ? "" : "backdrop-blur-[1px]"
+              isMobile || isAndroid ? "" : "backdrop-blur-[1px]"
             }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={isAndroid ? { duration: 0.12, ease: "linear" } : undefined}
             onClick={() => setActiveImageIndex(null)}
           >
             <motion.div
-              className="popup-outline relative h-[88vh] w-full max-w-[88vh] overflow-hidden border rounded-none bg-[var(--background)]/95"
-              initial={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
-              animate={isMobile ? { opacity: 1 } : { opacity: 1, scale: 1 }}
-              exit={isMobile ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
+              className={`popup-outline relative h-[88svh] w-full max-w-[88vh] overflow-hidden border rounded-none bg-[var(--background)]/95 ${
+                isAndroid ? "shadow-none" : ""
+              }`}
+              initial={isMobile || isAndroid ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+              animate={isMobile || isAndroid ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              exit={isMobile || isAndroid ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+              transition={isAndroid ? { duration: 0.12, ease: "linear" } : { duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               onMouseMove={isMobile ? undefined : () => {
                 setShowViewerControls(true);
