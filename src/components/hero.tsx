@@ -1,0 +1,77 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
+import { LocalTime } from "@/components/local-time";
+
+/**
+ * Hero — Swiss/minimal intro.
+ * Adapted to a works-first portfolio rhythm.
+ */
+export function Hero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, -22]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.93, 0.82]);
+  const titleScale = useTransform(scrollYProgress, [0, 1], [1, 0.985]);
+  const metaY = useTransform(scrollYProgress, [0, 1], [0, -14]);
+  const metaOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="top"
+      className="relative flex min-h-[84svh] items-center px-4 pb-4 pt-24 md:min-h-[86svh] md:px-10 md:pb-6 md:pt-28"
+    >
+      <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10">
+        <div className="col-span-12 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ash)]">
+          Portfolio 2026 · Philippines
+        </div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          style={{ y: titleY, opacity: titleOpacity, scale: titleScale }}
+          className="col-span-12 max-w-[18ch] text-[clamp(2rem,8.9vw,7.9rem)] leading-[0.95] tracking-[-0.02em] md:max-w-[22ch]"
+        >
+          <span className="block">Multidisciplinary designer crafting</span>
+          <span className="block">
+            <span className="font-serif italic serif-accent-hover">
+              clear systems, thoughtful identities,
+            </span>
+            and
+          </span>
+          <span className="block">refined visual rhythm.</span>
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          style={{ y: metaY, opacity: metaOpacity }}
+          className="col-span-12 grid grid-cols-12 gap-y-4 border-t hairline pt-5 md:gap-y-3 md:pt-6"
+        >
+          <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--ash)] md:col-span-9 md:pr-6">
+            Mark Angelo Cornejo — UI/UX, social media, layout, graphic design,
+            and branding.
+          </p>
+          <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-3 md:text-right">
+            Scroll to enter works ↓
+          </p>
+          <div className="col-span-12 grid grid-cols-2 gap-y-1.5 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 md:grid-cols-4 md:gap-x-4 md:gap-y-0">
+            <p>Open for freelance</p>
+            <p className="md:text-center">Manila / Remote</p>
+            <p className="md:text-center">Replies within 24-48h</p>
+            <p className="text-right">
+              Manila time <LocalTime />
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

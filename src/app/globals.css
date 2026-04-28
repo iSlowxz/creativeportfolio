@@ -1,0 +1,261 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ──────────────────────────────────────────────────────────
+   Mark Angelo Cornejo — Multidisciplinary Designer
+   Design tokens. Editorial palette + type system.
+   ────────────────────────────────────────────────────────── */
+
+:root {
+  /* surfaces */
+  --bone:   #f7f6f3;
+  --paper:  #fcfbf8;
+  --ink:    #0d0d0d;
+  --ash:    #6b6b6b;
+  --rule:   #d0d0d0;
+  --vermilion: #121212;
+  --moss:   #2f3a2f;
+  --tone-a: #8aa1c5;
+  --tone-b: #98b19f;
+  --tone-c: #c7a88f;
+  --text-hover-gradient: linear-gradient(
+    95deg,
+    var(--tone-c),
+    var(--tone-a),
+    var(--tone-b),
+    var(--tone-a)
+  );
+  --grid-line: color-mix(in srgb, var(--foreground) 22%, transparent);
+  --grid-fill: color-mix(in srgb, var(--foreground) 6%, transparent);
+  --grid-baseline: color-mix(in srgb, var(--foreground) 16%, transparent);
+
+  /* defaults wired to bone/ink */
+  --background: var(--bone);
+  --foreground: var(--ink);
+
+  --radius: 0px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bone: var(--bone);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ash: var(--ash);
+  --color-rule: var(--rule);
+  --color-vermilion: var(--vermilion);
+  --color-moss: var(--moss);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+/* Inverse "ink" mode — same site, flipped paper */
+.invert-mode {
+  --background: var(--ink);
+  --foreground: var(--bone);
+  --rule: #2b2b2b;
+  --paper: #171717;
+  --ash: #9d9d9d;
+  --tone-a: #4f5f78;
+  --tone-b: #4c6452;
+  --tone-c: #755946;
+  --text-hover-gradient: linear-gradient(
+    95deg,
+    #ffd2bd,
+    #9fd3ff,
+    #a9f0cf,
+    #d2c4ff
+  );
+  --grid-line: rgba(255, 255, 255, 0.42);
+  --grid-fill: rgba(255, 255, 255, 0.1);
+  --grid-baseline: rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  html, body {
+    background: var(--background);
+    color: var(--foreground);
+    scrollbar-width: none;
+    transition:
+      background-color 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(900px 520px at 88% -6%, color-mix(in srgb, var(--tone-a) 10%, transparent), transparent 68%),
+      radial-gradient(780px 460px at 16% 104%, color-mix(in srgb, var(--tone-c) 10%, transparent), transparent 70%),
+      radial-gradient(620px 360px at 62% 14%, color-mix(in srgb, #d94a2b 8%, transparent), transparent 72%);
+    background-attachment: fixed, fixed, fixed;
+    animation: bg-drift 28s ease-in-out infinite alternate;
+  }
+
+  /* Mobile Safari/webviews can glitch with fixed animated backgrounds. */
+  @media (hover: none) and (pointer: coarse) {
+    body {
+      background-attachment: scroll, scroll, scroll;
+      animation: none;
+    }
+  }
+
+  ::selection { background: var(--ink); color: var(--bone); }
+  .invert-mode ::selection { background: var(--bone); color: var(--ink); }
+
+  /* hide native cursor only when the custom cursor is available */
+  @media (hover: hover) and (pointer: fine) {
+    html.has-cursor, html.has-cursor * { cursor: none !important; }
+  }
+
+  .font-serif { font-family: var(--font-serif); }
+  .font-mono  { font-family: var(--font-mono); }
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-subtle {
+  scrollbar-width: none;
+}
+
+.scrollbar-subtle::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@keyframes bg-drift {
+  0% {
+    background-position: 100% 0%, 0% 100%, 58% 10%;
+  }
+  100% {
+    background-position: 95% 5%, 4% 95%, 64% 15%;
+  }
+}
+
+@keyframes testimonial-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes testimonial-marquee-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Hairlines & details — cross-fade their color when palette flips */
+.hairline {
+  border-color: var(--rule);
+  transition: border-color 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Subtle button accents for key actions */
+.btn-accent-soft {
+  transition:
+    background-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-accent-soft:hover {
+  background-color: color-mix(in srgb, var(--tone-a) 12%, var(--background));
+  color: var(--foreground);
+}
+
+.btn-accent-strong {
+  transition:
+    background-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-accent-strong:hover {
+  background-color: color-mix(in srgb, var(--tone-a) 18%, var(--foreground));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foreground) 25%, transparent);
+}
+
+/* Link interaction system */
+.link-standard {
+  transition:
+    color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-standard:hover {
+  color: var(--foreground);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.link-primary {
+  transition:
+    color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-primary:hover {
+  color: var(--foreground);
+  transform: translateY(-1px) scale(1.025);
+}
+
+.serif-accent-hover {
+  transition: color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.serif-accent-hover:hover {
+  color: var(--tone-a);
+}
+
+.invert-mode .serif-accent-hover:hover {
+  color: color-mix(in srgb, var(--tone-a) 64%, white);
+}
+
+/* removed marquee-specific styles for Swiss works-first layout */
+
+/* Subtle grain overlay (optional, tasteful) */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Scroll behavior */
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
