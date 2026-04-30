@@ -173,7 +173,7 @@ export function Works() {
                 type="button"
                 onClick={() => setLayout("grid")}
                 data-cursor="link"
-                className={`btn-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] ${
+                className={`btn-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] md:text-[11px] ${
                   layout === "grid" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-[var(--ash)]"
                 }`}
               >
@@ -183,7 +183,7 @@ export function Works() {
                 type="button"
                 onClick={() => setLayout("list")}
                 data-cursor="link"
-                className={`btn-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] ${
+                className={`btn-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] md:text-[11px] ${
                   layout === "list" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-[var(--ash)]"
                 }`}
               >
@@ -332,25 +332,25 @@ export function Works() {
                       {coverBySlug[p.slug]}
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/62 via-black/12 to-transparent opacity-0 transition-opacity duration-300 group-hover/image:opacity-100" />
                       <div className="pointer-events-none absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-300 group-hover/image:translate-y-0 group-hover/image:opacity-100">
-                        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/88 lg:text-[11px]">
                           {p.client}
                         </p>
                         <p className="mt-1 text-[clamp(1.05rem,1.7vw,1.35rem)] leading-none tracking-[-0.01em] text-white">
                           {p.discipline}
                         </p>
                         <div className="mt-3 flex items-center text-white/90">
-                          <span className="font-mono text-[10px] uppercase tracking-[0.16em]">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.16em] lg:text-[11px]">
                             Open project
                           </span>
                         </div>
                       </div>
                     </div>
                     <div className="flex items-center justify-between border-t hairline px-4 py-3">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] lg:text-[11px]">
                         {p.index}
                       </span>
-                      <span className="text-lg tracking-[-0.02em]">{p.title}</span>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                      <span className="text-lg tracking-[-0.02em] lg:text-xl">{p.title}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] lg:text-[11px]">
                         {p.category}
                       </span>
                     </div>

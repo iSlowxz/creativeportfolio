@@ -73,7 +73,7 @@ export function Hero() {
       className="relative flex min-h-[84svh] items-center px-4 pb-4 pt-24 md:min-h-[86svh] md:px-10 md:pb-6 md:pt-28"
     >
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10">
-        <ul className="col-span-12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.16em]">
+        <ul className="col-span-12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.16em] md:gap-x-6 md:text-[11px] md:tracking-[0.18em]">
           {audienceCards.map((item, idx) => (
             <li
               key={item.label}
@@ -82,10 +82,15 @@ export function Hero() {
                 type="button"
                 aria-pressed={idx === activeAudience}
                 onClick={() => onAudienceChange(idx)}
-                className={`transition-colors duration-200 ${
-                  idx === activeAudience ? "text-[var(--foreground)]" : "text-[var(--ash)] hover:text-[var(--foreground)]"
+                className={`inline-flex items-center gap-1.5 transition-colors duration-200 ${
+                  idx === activeAudience
+                    ? "text-[var(--foreground)]"
+                    : "text-[var(--ash)] hover:text-[var(--foreground)]"
                 }`}
               >
+                {idx === activeAudience && (
+                  <span aria-hidden className="text-[var(--tone-a)]">·</span>
+                )}
                 {item.label}
               </button>
             </li>
@@ -139,14 +144,14 @@ export function Hero() {
           style={{ y: metaY, opacity: metaOpacity }}
           className="col-span-12 grid grid-cols-12 gap-y-4 border-t hairline pt-5 md:gap-y-3 md:pt-6"
         >
-          <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--ash)] md:col-span-9 md:pr-6">
+          <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--ash)] md:col-span-9 md:pr-6 lg:text-[11px] lg:tracking-[0.16em]">
             Mark Angelo Cornejo — UI/UX, social media, layout, graphic design,
             and branding.
           </p>
-          <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-3 md:text-right">
+          <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-3 md:text-right lg:text-[11px]">
             Scroll to enter works ↓
           </p>
-          <div className="col-span-12 grid grid-cols-2 gap-y-1.5 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 md:grid-cols-4 md:gap-x-4 md:gap-y-0">
+          <div className="col-span-12 grid grid-cols-2 gap-y-1.5 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 md:grid-cols-4 md:gap-x-4 md:gap-y-0 lg:text-[11px]">
             <p>Open for freelance</p>
             <p className="md:text-center">Manila / Remote</p>
             <p className="md:text-center">Replies within 24-48h</p>

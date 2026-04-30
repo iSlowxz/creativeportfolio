@@ -60,9 +60,12 @@
   --rule: #2b2b2b;
   --paper: #171717;
   --ash: #9d9d9d;
-  --tone-a: #4f5f78;
-  --tone-b: #4c6452;
-  --tone-c: #755946;
+  /* Brightened so 10% opacity tints stay perceptible on dark backgrounds */
+  --tone-a: #7a96ba;
+  --tone-b: #7a9e82;
+  --tone-c: #b08870;
+  /* Warm light accent — replaces near-black vermilion that vanishes on dark bg */
+  --vermilion: #e8c4a0;
   --text-hover-gradient: linear-gradient(
     95deg,
     #ffd2bd,
@@ -238,7 +241,8 @@ body::-webkit-scrollbar {
 }
 
 .invert-mode .serif-accent-hover {
-  color: color-mix(in srgb, var(--tone-a) 64%, white);
+  /* Use brightened tone-a directly — sufficient contrast on dark bg */
+  color: color-mix(in srgb, var(--tone-a) 82%, white);
 }
 
 .invert-mode .serif-accent-hover:hover {
