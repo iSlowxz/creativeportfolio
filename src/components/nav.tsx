@@ -57,7 +57,7 @@ export function Nav() {
 
   const renderLogoName = () => {
     const full = "MARK ANGELO CORNEJO";
-    const compact = "MA";
+    const compact = "MAC";
 
     return (
       <span data-no-scramble="true" className="font-sans font-semibold tracking-[0.08em]">

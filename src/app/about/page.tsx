@@ -72,10 +72,8 @@ export default function AboutPage() {
                   interface clarity meets typographic rhythm. My practice 
                   moves through brand identity, social systems,
                   and editorial layout, building visual worlds
-                  that feel both precise and alive. I treat design
-                  as sequencing: what the eye sees first, 
-                  what it feels next, and what stays after. 
-                  Based in Manila, I help brands translate 
+                  that feel both precise and alive.
+                  Based in Philippines, I help brands translate 
                   complex ideas into structure and direction.
                 </p>
               </div>
