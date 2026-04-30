@@ -24,12 +24,12 @@ export default function ContactPage() {
                 24 to 48 hours.
               </p>
               <a
-                href="mailto:hello@markcornejo.design"
+                href="mailto:markangelocornejoooo@gmail.com"
                 data-cursor="send"
                 data-no-scramble="true"
                 className="btn-accent-soft mt-7 inline-flex items-center justify-center border hairline px-5 py-3 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors hover:bg-[var(--foreground)] hover:text-[var(--background)]"
               >
-                hello@markcornejo.design
+                markangelocornejoooo@gmail.com
               </a>
             </div>
           </ScrollReveal>

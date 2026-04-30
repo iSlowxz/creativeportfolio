@@ -173,12 +173,12 @@ export default function AboutPage() {
             </div>
             <div className="col-span-12 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ash)] md:col-span-5 md:text-right">
               <a
-                href="mailto:hello@markcornejo.design"
+                href="mailto:markangelocornejoooo@gmail.com"
                 data-cursor="link"
                 data-no-scramble="true"
                 className="link-primary"
               >
-                hello@markcornejo.design
+                markangelocornejoooo@gmail.com
               </a>
             </div>
             </section>
