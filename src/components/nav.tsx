@@ -102,7 +102,7 @@ export function Nav() {
         className="fixed inset-x-0 top-0 z-40 px-4 pt-3 md:px-10 md:pt-5"
       >
         <nav
-          className={`mx-auto grid max-w-[1400px] grid-cols-[auto_1fr] items-center rounded-md border px-2.5 py-2 md:grid-cols-3 md:px-3 md:py-2.5 transition-[background-color,border-color,backdrop-filter] duration-500 ${
+          className={`mx-auto grid max-w-[1400px] grid-cols-[auto_1fr] items-center rounded-md border px-3 py-2 md:grid-cols-3 md:px-4 md:py-3 transition-[background-color,border-color,backdrop-filter] duration-500 ${
             scrolled
               ? "hairline border-[color-mix(in_srgb,var(--rule)_70%,transparent)] bg-[color-mix(in_srgb,var(--background)_72%,transparent)] backdrop-blur-md"
               : "border-transparent bg-transparent backdrop-blur-none"

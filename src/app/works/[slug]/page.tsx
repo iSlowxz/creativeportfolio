@@ -69,7 +69,7 @@ export default async function WorkDetailPage({
               <Link
                 href="/#works"
                 data-cursor="link"
-                className="mb-4 inline-flex w-fit border hairline px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)] transition-colors hover:text-[var(--foreground)]"
+                className="mb-4 inline-flex w-fit border hairline px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)] transition-colors hover:text-[var(--foreground)]"
               >
                 ← Back to Works
               </Link>

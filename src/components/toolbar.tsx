@@ -29,7 +29,7 @@ function ToggleButton({
       onClick={onClick}
       data-cursor="link"
       aria-pressed={active}
-      className="inline-flex items-center gap-2 px-1 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--vermilion)]"
+      className="inline-flex items-center gap-2 px-1 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--foreground)] transition-colors duration-300 hover:text-[var(--vermilion)]"
     >
       <span
         aria-hidden
@@ -181,12 +181,12 @@ export function Toolbar({ className = "" }: { className?: string }) {
           className={`relative flex items-center border hairline bg-[var(--background)]/78 backdrop-blur-sm rounded-md ${
             collapsed
               ? "h-10 w-10 justify-center p-0"
-              : "h-10 gap-2.5 px-2.5 py-0"
+              : "h-10 gap-3 px-3 py-0"
           }`}
           style={{ overflow: "hidden" }}
         >
           <motion.div
-            className="flex items-center gap-2.5 overflow-hidden"
+            className="flex items-center gap-3 overflow-hidden"
             initial={false}
             animate={{
               width: collapsed ? 0 : isMd ? 236 : 170,
@@ -268,7 +268,7 @@ export function Toolbar({ className = "" }: { className?: string }) {
             <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--foreground)]">
               Shortcuts
             </p>
-            <ul className="space-y-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)]">
+            <ul className="space-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--foreground)]">
               <li>G — Toggle Grid</li>
               <li>D — Toggle Ink/Paper</li>
               <li>? — Toggle Help</li>

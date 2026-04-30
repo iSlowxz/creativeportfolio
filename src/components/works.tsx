@@ -173,7 +173,7 @@ export function Works() {
                 type="button"
                 onClick={() => setLayout("grid")}
                 data-cursor="link"
-                className={`btn-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] md:text-[11px] ${
+                className={`btn-accent-soft px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] md:text-[11px] ${
                   layout === "grid" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-[var(--ash)]"
                 }`}
               >
@@ -183,7 +183,7 @@ export function Works() {
                 type="button"
                 onClick={() => setLayout("list")}
                 data-cursor="link"
-                className={`btn-accent-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] md:text-[11px] ${
+                className={`btn-accent-soft px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] md:text-[11px] ${
                   layout === "list" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-[var(--ash)]"
                 }`}
               >
@@ -295,7 +295,7 @@ export function Works() {
                         <div className="aspect-[4/5]">
                           {coverBySlug[p.slug]}
                         </div>
-                        <div className="flex items-center justify-between border-t hairline px-2 py-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ash)]">
+                        <div className="flex items-center justify-between border-t hairline px-2 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ash)]">
                           <span>{p.index}</span>
                           <span>{p.year}</span>
                         </div>
@@ -433,7 +433,7 @@ export function Works() {
                               <h4 className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                                 Snapshot
                               </h4>
-                              <ul className="mt-3 space-y-1.5 font-mono text-[10px] uppercase tracking-[0.16em]">
+                              <ul className="mt-3 space-y-2 font-mono text-[10px] uppercase tracking-[0.16em]">
                                 <li>Index · {work.index}</li>
                                 <li>Category · {work.category}</li>
                                 <li>Year · {work.year}</li>
@@ -441,7 +441,7 @@ export function Works() {
                             </div>
                             <article className="col-span-12 space-y-5 md:col-span-8">
                               <div>
-                                <h4 className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
+                                <h4 className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                                   Overview
                                 </h4>
                                 <p className="text-[clamp(1rem,1.45vw,1.2rem)] leading-[1.35]">
@@ -449,7 +449,7 @@ export function Works() {
                                 </p>
                               </div>
                               <div>
-                                <h4 className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
+                                <h4 className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                                   Challenge
                                 </h4>
                                 <p className="text-[0.98rem] leading-[1.38]">
@@ -457,7 +457,7 @@ export function Works() {
                                 </p>
                               </div>
                               <div>
-                                <h4 className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
+                                <h4 className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                                   Approach
                                 </h4>
                                 <p className="text-[0.98rem] leading-[1.38]">
@@ -465,7 +465,7 @@ export function Works() {
                                 </p>
                               </div>
                               <div>
-                                <h4 className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
+                                <h4 className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                                   Result
                                 </h4>
                                 <p className="text-[0.98rem] leading-[1.38]">
@@ -473,7 +473,7 @@ export function Works() {
                                 </p>
                               </div>
                               <div>
-                                <h4 className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
+                                <h4 className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                                   Tools
                                 </h4>
                                 <div className="flex flex-wrap gap-2">
@@ -527,7 +527,7 @@ export function Works() {
                       <button
                         type="button"
                         onClick={() => setActiveSlug(null)}
-                        className="popup-outline btn-accent-soft border rounded-none px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em]"
+                        className="popup-outline btn-accent-soft border rounded-none px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em]"
                       >
                         Close
                       </button>
@@ -640,7 +640,7 @@ export function Works() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.98 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="popup-outline pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border rounded-none bg-[var(--background)]/82 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
+                    className="popup-outline pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 border rounded-none bg-[var(--background)]/82 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--foreground)] backdrop-blur-sm"
                   >
                     {isMobile ? "Swipe left or right" : "Use Arrow Keys • ESC"}
                   </motion.p>

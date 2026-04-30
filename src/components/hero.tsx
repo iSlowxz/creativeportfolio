@@ -153,7 +153,7 @@ export function Hero() {
           </p>
           <div className="col-span-12 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 lg:text-[11px]">
             {isMobile ? (
-              <div className="grid grid-cols-2 gap-y-1.5">
+              <div className="grid grid-cols-2 gap-y-2">
                 <p>Open for freelance</p>
                 <p className="text-right">Philippines / Remote</p>
                 <p>Replies within 24-48h</p>
