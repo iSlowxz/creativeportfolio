@@ -82,15 +82,12 @@ export function Hero() {
                 type="button"
                 aria-pressed={idx === activeAudience}
                 onClick={() => onAudienceChange(idx)}
-                className={`inline-flex items-center gap-1.5 transition-colors duration-200 ${
+                className={`relative inline-flex items-center pb-1 transition-colors duration-200 ${
                   idx === activeAudience
-                    ? "text-[var(--foreground)]"
+                    ? "text-[var(--foreground)] after:absolute after:inset-x-0 after:-bottom-[2px] after:h-px after:bg-[var(--tone-a)]"
                     : "text-[var(--ash)] hover:text-[var(--foreground)]"
                 }`}
               >
-                {idx === activeAudience && (
-                  <span aria-hidden className="text-[var(--tone-a)]">·</span>
-                )}
                 {item.label}
               </button>
             </li>
