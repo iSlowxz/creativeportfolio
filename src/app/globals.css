@@ -172,6 +172,22 @@ body::-webkit-scrollbar {
   }
 }
 
+@keyframes scroll-cue-arrow {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.78;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.scroll-cue-arrow {
+  animation: scroll-cue-arrow 1.35s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
 /* Hairlines & details — cross-fade their color when palette flips */
 .hairline {
   border-color: var(--rule);

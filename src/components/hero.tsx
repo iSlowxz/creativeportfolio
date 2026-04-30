@@ -146,7 +146,10 @@ export function Hero() {
             and branding.
           </p>
           <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-3 md:text-right lg:text-[11px]">
-            Scroll to enter works ↓
+            Scroll to enter works{" "}
+            <span aria-hidden className="scroll-cue-arrow inline-block">
+              ↓
+            </span>
           </p>
           <div className="col-span-12 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 lg:text-[11px]">
             {isMobile ? (
