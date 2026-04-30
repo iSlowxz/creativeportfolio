@@ -62,23 +62,31 @@ export function Nav() {
     return (
       <span data-no-scramble="true" className="font-sans font-semibold tracking-[0.08em]">
         <span className="inline-flex items-center md:hidden">
-          <span>{compact}</span>
+          <span
+            className={`overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              logoExpanded ? "max-w-0 opacity-0" : "max-w-[6ch] opacity-100"
+            }`}
+          >
+            {compact}
+          </span>
           <span
             className={`overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               logoExpanded ? "max-w-[22ch] opacity-100" : "max-w-0 opacity-0"
             }`}
             aria-hidden="true"
           >
-            {full.slice(2)}
+            {full}
           </span>
         </span>
         <span className="hidden items-center md:inline-flex">
-          <span>{compact}</span>
+          <span className="overflow-hidden whitespace-nowrap opacity-100 max-w-[6ch] transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:opacity-0 group-hover/logo:max-w-0">
+            {compact}
+          </span>
           <span
             className="overflow-hidden whitespace-nowrap pl-0 opacity-0 max-w-0 transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:max-w-[22ch] group-hover/logo:opacity-100"
             aria-hidden="true"
           >
-            {full.slice(2)}
+            {full}
           </span>
         </span>
       </span>
