@@ -45,7 +45,7 @@ export function Testimonials() {
   const itemsA = [...testimonials, ...testimonials];
   const rotated = [...testimonials.slice(1), testimonials[0]];
   const itemsB = [...rotated, ...rotated];
-  const columns = isMobile ? [itemsA] : [itemsA, itemsB];
+  const columns = isMobile ? [testimonials] : [itemsA, itemsB];
 
   return (
     <section id="testimonials" className="relative px-4 py-14 md:px-10 md:py-20">
@@ -62,7 +62,7 @@ export function Testimonials() {
           {columns.map((columnItems, columnIdx) => (
             <div
               key={columnIdx}
-              className={`h-[320px] overflow-hidden md:h-[340px] ${
+              className={`relative h-[320px] overflow-y-auto overflow-x-hidden md:h-[340px] md:overflow-hidden ${
                 columnIdx === 1 ? "md:border-l hairline" : ""
               }`}
             >
@@ -73,10 +73,10 @@ export function Testimonials() {
                 transition={{ duration: 0.34, delay: columnIdx * 0.05 }}
               >
                 <ul
-                  className={`flex h-max flex-col items-stretch hover:[animation-play-state:paused] ${
+                  className={`flex h-max flex-col items-stretch ${
                     columnIdx === 0
-                      ? "animate-[testimonial-marquee-vertical_26s_linear_infinite]"
-                      : "animate-[testimonial-marquee-vertical_30s_linear_infinite_reverse]"
+                      ? "md:animate-[testimonial-marquee-vertical_26s_linear_infinite] md:hover:[animation-play-state:paused]"
+                      : "md:animate-[testimonial-marquee-vertical_30s_linear_infinite_reverse] md:hover:[animation-play-state:paused]"
                   }`}
                 >
                   {columnItems.map((item, index) => (
@@ -102,6 +102,8 @@ export function Testimonials() {
                   ))}
                 </ul>
               </motion.div>
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-[var(--background)] to-transparent md:hidden" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[var(--background)] to-transparent md:hidden" />
             </div>
           ))}
         </div>
