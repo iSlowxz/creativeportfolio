@@ -61,11 +61,11 @@ export default async function WorkDetailPage({
       <Nav />
       <section className="px-4 pb-20 pt-30 md:px-10 md:pt-36">
         <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-x-6 gap-y-10">
-          <header className="col-span-12 grid grid-cols-12 border-t hairline pt-7">
+          <header className="col-span-12 grid grid-cols-12 border-t hairline pt-8">
             <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-2">
               Case Study
             </p>
-            <div className="col-span-12 mt-5 md:col-span-10 md:mt-0">
+            <div className="col-span-12 mt-6 md:col-span-10 md:mt-0">
               <Link
                 href="/#works"
                 data-cursor="link"
@@ -76,7 +76,7 @@ export default async function WorkDetailPage({
               <h1 className="text-[clamp(2rem,7vw,6rem)] leading-[0.94] tracking-[-0.02em]">
                 {work.title}
               </h1>
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                 {work.discipline} · {work.client} · {work.year}
               </p>
             </div>

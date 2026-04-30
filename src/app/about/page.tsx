@@ -11,7 +11,7 @@ export default function AboutPage() {
       <section id="about" className="px-4 pb-20 pt-30 md:px-10 md:pt-36">
         <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-x-6 gap-y-10">
           <ScrollReveal className="col-span-12">
-            <header className="grid grid-cols-12 border-t hairline pt-7">
+            <header className="grid grid-cols-12 border-t hairline pt-8">
               <div className="col-span-12 md:col-span-2">
                 <RevealSubheading>
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
@@ -19,7 +19,7 @@ export default function AboutPage() {
                   </p>
                 </RevealSubheading>
               </div>
-              <div className="col-span-12 mt-5 md:col-span-10 md:mt-0">
+              <div className="col-span-12 mt-6 md:col-span-10 md:mt-0">
                 <RevealHeading delay={0.02}>
                   <h1 className="whitespace-nowrap text-[clamp(1.45rem,5.1vw,5.2rem)] leading-[0.94] tracking-[-0.02em]">
                     <span className="font-medium">About </span>
@@ -35,7 +35,7 @@ export default function AboutPage() {
           <ScrollReveal className="col-span-12" delay={0.03}>
             <section className="grid grid-cols-12 gap-6">
             {/* Left dossier card */}
-            <aside className="col-span-12 border hairline bg-[var(--paper)] p-4 md:col-span-4 md:p-5">
+            <aside className="col-span-12 border hairline bg-[var(--paper)] p-4 md:col-span-4 md:p-6">
               <HoverPerspective
                 className="relative aspect-[4/5] overflow-hidden border hairline"
                 tilt={6}
@@ -51,8 +51,8 @@ export default function AboutPage() {
 
               <div className="mt-4 border-t hairline pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
                 <p>Based in Philippines</p>
-                <p className="mt-1">BSCS · Class of 2026</p>
-                <p className="mt-1">Open for freelance + collaboration</p>
+                <p className="mt-2">BSCS · Class of 2026</p>
+                <p className="mt-2">Open for freelance + collaboration</p>
               </div>
             </aside>
 
@@ -60,7 +60,7 @@ export default function AboutPage() {
             <article className="col-span-12 space-y-8 md:col-span-8">
               <div className="border-t hairline pt-6">
                 <RevealSubheading>
-                  <h2 className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                  <h2 className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
                     Infos
                   </h2>
                 </RevealSubheading>
@@ -78,10 +78,10 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 gap-5 border-t hairline pt-6 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 border-t hairline pt-6 md:grid-cols-2">
                 <div>
                   <RevealSubheading>
-                    <h3 className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                    <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
                       Focus
                     </h3>
                   </RevealSubheading>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <RevealSubheading>
-                    <h3 className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                    <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
                       Toolkit
                     </h3>
                   </RevealSubheading>
@@ -110,7 +110,7 @@ export default function AboutPage() {
 
               <div className="border-t hairline pt-6">
                 <RevealSubheading>
-                  <h2 className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
+                  <h2 className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)]">
                     Vision
                   </h2>
                 </RevealSubheading>

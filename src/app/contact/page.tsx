@@ -27,7 +27,7 @@ export default function ContactPage() {
                 href="mailto:markangelocornejoooo@gmail.com"
                 data-cursor="send"
                 data-no-scramble="true"
-                className="btn-accent-soft mt-7 inline-flex items-center justify-center border hairline px-5 py-3 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors hover:bg-[var(--foreground)] hover:text-[var(--background)]"
+                className="btn-accent-soft mt-8 inline-flex items-center justify-center border hairline px-5 py-3 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors hover:bg-[var(--foreground)] hover:text-[var(--background)]"
               >
                 markangelocornejoooo@gmail.com
               </a>

@@ -139,7 +139,7 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
           style={{ y: metaY, opacity: metaOpacity }}
-          className="col-span-12 grid grid-cols-12 gap-y-4 border-t hairline pt-5 md:gap-y-3 md:pt-6"
+          className="col-span-12 grid grid-cols-12 gap-y-4 border-t hairline pt-6 md:gap-y-4 md:pt-6"
         >
           <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--ash)] md:col-span-9 md:pr-6 lg:text-[11px] lg:tracking-[0.16em]">
             Mark Angelo Cornejo — UI/UX, social media, layout, graphic design,
@@ -151,7 +151,7 @@ export function Hero() {
               ↓
             </span>
           </p>
-          <div className="col-span-12 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 lg:text-[11px]">
+          <div className="col-span-12 border-t hairline pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 lg:text-[11px]">
             {isMobile ? (
               <div className="grid grid-cols-2 gap-y-2">
                 <p>Open for freelance</p>
