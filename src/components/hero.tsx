@@ -152,7 +152,7 @@ export function Hero() {
             {isMobile ? (
               <div className="grid grid-cols-2 gap-y-1.5">
                 <p>Open for freelance</p>
-                <p className="text-right">Manila / Remote</p>
+                <p className="text-right">Philippines / Remote</p>
                 <p>Replies within 24-48h</p>
                 <p className="text-right">
                   Manila time <LocalTime />
@@ -172,8 +172,8 @@ export function Hero() {
                     <p>Manila time <LocalTime /></p>
                   </div>
                   <div aria-hidden className="flex items-center gap-10 pr-10">
-                    <p>Open for freelance</p>
-                    <p>Manila / Remote</p>
+                    <p>Open for freelance and Collaboration</p>
+                    <p>Philippines / Remote</p>
                     <p>Replies within 24-48h</p>
                     <p>Manila time <LocalTime /></p>
                   </div>

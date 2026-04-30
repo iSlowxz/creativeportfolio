@@ -50,7 +50,7 @@ export default function AboutPage() {
               </HoverPerspective>
 
               <div className="mt-4 border-t hairline pt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ash)]">
-                <p>Based in Manila, Philippines</p>
+                <p>Based in Philippines</p>
                 <p className="mt-1">BSCS · Class of 2026</p>
                 <p className="mt-1">Open for freelance + collaboration</p>
               </div>
