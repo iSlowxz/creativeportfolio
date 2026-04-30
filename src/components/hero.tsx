@@ -148,13 +148,38 @@ export function Hero() {
           <p className="col-span-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ash)] md:col-span-3 md:text-right lg:text-[11px]">
             Scroll to enter works ↓
           </p>
-          <div className="col-span-12 grid grid-cols-2 gap-y-1.5 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 md:grid-cols-4 md:gap-x-4 md:gap-y-0 lg:text-[11px]">
-            <p>Open for freelance</p>
-            <p className="md:text-center">Manila / Remote</p>
-            <p className="md:text-center">Replies within 24-48h</p>
-            <p className="text-right">
-              Manila time <LocalTime />
-            </p>
+          <div className="col-span-12 border-t hairline pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ash)]/90 lg:text-[11px]">
+            {isMobile ? (
+              <div className="grid grid-cols-2 gap-y-1.5">
+                <p>Open for freelance</p>
+                <p className="text-right">Manila / Remote</p>
+                <p>Replies within 24-48h</p>
+                <p className="text-right">
+                  Manila time <LocalTime />
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-hidden">
+                <motion.div
+                  className="flex w-max items-center gap-10 whitespace-nowrap"
+                  animate={{ x: ["0%", "-50%"] }}
+                  transition={{ duration: 24, ease: "linear", repeat: Infinity }}
+                >
+                  <div className="flex items-center gap-10 pr-10">
+                    <p>Open for freelance</p>
+                    <p>Manila / Remote</p>
+                    <p>Replies within 24-48h</p>
+                    <p>Manila time <LocalTime /></p>
+                  </div>
+                  <div aria-hidden className="flex items-center gap-10 pr-10">
+                    <p>Open for freelance</p>
+                    <p>Manila / Remote</p>
+                    <p>Replies within 24-48h</p>
+                    <p>Manila time <LocalTime /></p>
+                  </div>
+                </motion.div>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
